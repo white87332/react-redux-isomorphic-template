@@ -5,7 +5,7 @@ export default () =>
     global.log = new Logger().getLog();
     if (undefined === System.import)
     {
-        System.import = (path) =>
+        global.System.import = (path) =>
         {
             return Promise.resolve(require(path));
         };

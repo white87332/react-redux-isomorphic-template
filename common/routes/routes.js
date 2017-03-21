@@ -1,31 +1,15 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import asyncComponent from '../utils/asyncComponent';
+import Index from '../path/index/index';
+import Counter from '../path/counter/counter';
 
-// const Status = ({ code, children }) => (
-//     <Route render={({ staticContext }) => {
-//         if (staticContext)
-//         {
-//             staticContext.status = code;
-//         }
-//         return children;
-//     }
-//     }
-//     />
-// );
-//
-// const NotFound = () => (
-//   <Status code={404}>
-//     <div>
-//       <h1>Sorry, can’t find that.</h1>
-//     </div>
-//   </Status>
-// )
-
-
-export default () => (
-    <Switch>
-        <Route exact path="/" component={asyncComponent(() => System.import('../path/index/index').then(module => module.default))} />
-        <Route exact path="/counter" component={asyncComponent(() => System.import('../path/counter/counter').then(module => module.default))} />
-    </Switch>
-);
+export const routes = [
+    {
+        component: Index,
+        path: '/',
+        exact: true
+    },
+    {
+        component: Counter,
+        path: '/counter',
+        exact: true
+    }
+];

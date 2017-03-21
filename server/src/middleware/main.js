@@ -47,7 +47,7 @@ export default function (app)
         const webpackHotMiddleware = require('webpack-hot-middleware');
         app.use(webpackDevMiddleware(compiler,
             {
-                noInfo: true, publicPath: config.output.publicPath,
+                noInfo: false, publicPath: config.output.publicPath,
             }));
         app.use(webpackHotMiddleware(compiler));
     }

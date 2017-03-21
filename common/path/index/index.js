@@ -1,5 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
+// import { translate } from 'react-i18next';
+import isNode from 'detect-node';
 
+if (!isNode)
+{
+    require('./index.scss');
+}
+
+// @translate(['common'], { wait: true })
 class Index extends React.Component
 {
     static locales = [];
@@ -22,5 +31,4 @@ class Index extends React.Component
     }
 }
 
-export default Index;
-// export default connect(mapStateToProps, mapDispatchToProps)(Index);
+export default connect()(Index);
