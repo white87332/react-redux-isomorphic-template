@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-// import { translate } from 'react-i18next';
+import { translate } from 'react-i18next';
 import isNode from 'detect-node';
 
 if (!isNode)
@@ -8,10 +8,12 @@ if (!isNode)
     require('./index.scss');
 }
 
-// @translate(['common'], { wait: true })
+@translate(['common'], { wait: true })
 class Index extends React.Component
 {
-    static locales = [];
+    static locales = [
+        'common'
+    ];
 
     static needs = [];
 
