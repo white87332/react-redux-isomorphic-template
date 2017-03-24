@@ -12,7 +12,6 @@ class Layout extends React.Component
     {
         return (
             <div className="layout">
-                123
                 {this.props.children}
             </div>
         );
