@@ -1,6 +1,6 @@
 {
   "name": "react-redux-isomprphic-template",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An isomorphic example built with react, redux and react-router",
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon -r babel-register ./server/server.js",
