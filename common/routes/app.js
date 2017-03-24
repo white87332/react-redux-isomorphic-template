@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { uniqueId } from 'lodash';
-// import asyncComponent from '../utils/asyncComponent';
 import { routes } from './routes';
 
 export default () => (
