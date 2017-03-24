@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class Layout extends React.Component
 {
@@ -12,6 +13,8 @@ class Layout extends React.Component
     {
         return (
             <div className="layout">
+                <Link to="/">index</Link>&nbsp;&nbsp;
+                <Link to="/counter">counter</Link>
                 {this.props.children}
             </div>
         );
