@@ -81,6 +81,14 @@ export default function render(app)
                             </Provider>
                         );
 
+                        let jsLink = 'bundle.min.js';
+                        let cssLink = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
+                        if (process.env.NODE_ENV === 'development')
+                        {
+                            jsLink = 'bundle.js';
+                            cssLink = '';
+                        }
+
                         return `
                         <!doctype html>
                         <html lang="utf-8">
@@ -91,12 +99,13 @@ export default function render(app)
                               <meta name="description" content="">
                               <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
                               <title>react-redux-isomorphic</title>
+                              ${cssLink}
                           </head>
                           <body>
                             <div id="root">${html}</div>
                             <script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
                             <script>window.$i18n = ${serialize(i18nClient)}</script>
-                            <script async src="/asset/js/bundle/bundle.js"></script>
+                            <script async src="/asset/js/bundle/${jsLink}"></script>
                           </body>
                         </html>
                         `;

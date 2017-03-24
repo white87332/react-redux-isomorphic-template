@@ -36,7 +36,8 @@ module.exports = {
                 },
                 exclude: /(node_modules)/
             }
-        ]
+        ],
+        exprContextCritical: false
     },
     plugins: [
         new webpack.IgnorePlugin(/\.(css|less|scss|svg|png|jpe?g|png)$/),

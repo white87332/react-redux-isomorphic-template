@@ -51,6 +51,7 @@ module.exports = {
                 use: 'url-loader?limit=8192&name=./asset/img/[name].[ext]'
             },
         ],
+        exprContextCritical: false
     },
     resolveLoader: {
         moduleExtensions: ['-loader']

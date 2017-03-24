@@ -12,6 +12,7 @@ class Layout extends React.Component
     {
         return (
             <div className="layout">
+                123
                 {this.props.children}
             </div>
         );
@@ -23,7 +24,7 @@ Layout.defaultProps = {
 };
 
 Layout.propTypes = {
-    children: React.PropTypes.element.isRequired
+    children: React.PropTypes.array.isRequired
 };
 
 export default Layout;
