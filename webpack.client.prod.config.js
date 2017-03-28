@@ -10,7 +10,7 @@ module.exports = {
             'babel-polyfill',
             `${path.resolve(__dirname, 'common')}/containers/app`
         ],
-        vendor: ['react', 'react-dom']
+        // vendor: ['react', 'react-dom']
     },
     output:
     {
@@ -81,9 +81,9 @@ module.exports = {
             filename: '../../css/bundle/bundle.min.css',
             allChunks: false
         }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor',
-            filename: 'vendor.min.js'
-        })
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor',
+        //     filename: 'vendor.min.js'
+        // })
     ],
 };
