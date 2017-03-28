@@ -10,6 +10,7 @@ module.exports = {
             'babel-polyfill',
             `${path.resolve(__dirname, 'common')}/containers/app`
         ],
+        vendor: ['react', 'react-dom']
     },
     output:
     {
@@ -60,6 +61,10 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
-        new webpack.LoaderOptionsPlugin({ options: { postcss: [autoprefixer] } })
+        new webpack.LoaderOptionsPlugin({ options: { postcss: [autoprefixer] } }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.js'
+        })
     ]
 };

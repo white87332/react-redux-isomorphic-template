@@ -9,7 +9,8 @@ module.exports = {
         app: [
             'babel-polyfill',
             `${path.resolve(__dirname, 'common')}/containers/app`
-        ]
+        ],
+        vendor: ['react', 'react-dom']
     },
     output:
     {
@@ -79,6 +80,10 @@ module.exports = {
         new ExtractTextPlugin({
             filename: '../../css/bundle/bundle.min.css',
             allChunks: false
+        }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: 'vendor',
+            filename: 'vendor.min.js'
         })
     ],
 };
