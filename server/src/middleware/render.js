@@ -81,11 +81,11 @@ export default function render(app)
                             </Provider>
                         );
 
-                        let bundleJsLink = 'bundle.min.js';
+                        let bundleJs = 'bundle.min.js';
                         let cssLink = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
                         if (process.env.NODE_ENV === 'development')
                         {
-                            bundleJsLink = 'bundle.js';
+                            bundleJs = 'bundle.js';
                             cssLink = '';
                         }
 
@@ -105,7 +105,7 @@ export default function render(app)
                             <div id="root">${html}</div>
                             <script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
                             <script>window.$i18n = ${serialize(i18nClient)}</script>
-                            <script async src="/asset/js/bundle/${bundleJsLink}"></script>
+                            <script async src="/asset/js/bundle/${bundleJs}"></script>
                           </body>
                         </html>
                         `;
