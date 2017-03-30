@@ -82,11 +82,11 @@ export default function render(app)
                         );
 
                         let bundleJs = 'bundle.min.js';
-                        let cssLink = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
+                        let bundleCss = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
                         if (process.env.NODE_ENV === 'development')
                         {
                             bundleJs = 'bundle.js';
-                            cssLink = '';
+                            bundleCss = '';
                         }
 
                         return `
@@ -99,7 +99,7 @@ export default function render(app)
                               <meta name="description" content="">
                               <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
                               <title>react-redux-isomorphic</title>
-                              ${cssLink}
+                              ${bundleCss}
                           </head>
                           <body>
                             <div id="root">${html}</div>
