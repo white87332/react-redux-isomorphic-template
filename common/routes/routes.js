@@ -18,5 +18,10 @@ export const routes = [
         component: asyncComponent(() => System.import('../path/counter/counter').then(module => module.default)),
         path: '/counter',
         exact: true
+    },
+    {
+        component: asyncComponent(() => System.import('../path/notFound/notFound').then(module => module.default)),
+        path: '/notFound',
+        exact: true
     }
 ];
