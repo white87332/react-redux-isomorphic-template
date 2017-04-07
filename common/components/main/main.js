@@ -1,5 +1,6 @@
 import React from 'react';
 import isNode from 'detect-node';
+import PropTypes from 'prop-types';
 
 if (!isNode)
 {
@@ -29,7 +30,7 @@ Main.defaultProps = {
 };
 
 Main.propTypes = {
-    children: React.PropTypes.element.isRequired
+    children: PropTypes.element.isRequired
 };
 
 export default Main;

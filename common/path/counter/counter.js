@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import isNode from 'detect-node';
+import PropTypes from 'prop-types';
 import * as CounterActions from '../../actions/counter';
 
 if (!isNode)
@@ -45,9 +46,9 @@ class Counter extends React.Component
 }
 
 Counter.propTypes = {
-    increment: React.PropTypes.func.isRequired,
-    decrement: React.PropTypes.func.isRequired,
-    numbers: React.PropTypes.number.isRequired
+    increment: PropTypes.func.isRequired,
+    decrement: PropTypes.func.isRequired,
+    numbers: PropTypes.number.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);
