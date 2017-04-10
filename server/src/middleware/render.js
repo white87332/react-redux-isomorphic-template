@@ -126,7 +126,7 @@ export default function render(app)
                 }
                 else
                 {
-                    res.status(307).redirect('/notFound');
+                    res.redirect('/notFound');
                 }
             }
         }
