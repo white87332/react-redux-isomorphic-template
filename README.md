@@ -1,6 +1,11 @@
-# react-redux-isomorphic
+# react-redux-isomorphic-template
 
-This is a react isomorphic sample, it's include i18next languages setting.
+This is a react isomorphic template.
+it's included below
+1. react15.5
+2. react-router4
+3. redux3.6
+4. i18next
 
 ## License
 
