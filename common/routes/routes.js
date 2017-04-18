@@ -10,17 +10,17 @@ if (undefined === global.System.import)
 
 export const routes = [
     {
-        component: asyncComponent(() => System.import('../path/index/index').then(module => module.default)),
+        component: asyncComponent(() => System.import('../containers/index/index').then(module => module.default)),
         path: '/',
         exact: true
     },
     {
-        component: asyncComponent(() => System.import('../path/counter/counter').then(module => module.default)),
+        component: asyncComponent(() => System.import('../containers/counter/counter').then(module => module.default)),
         path: '/counter',
         exact: true
     },
     {
-        component: asyncComponent(() => System.import('../path/notFound/notFound').then(module => module.default)),
+        component: asyncComponent(() => System.import('../containers/notFound/notFound').then(module => module.default)),
         path: '/notFound',
         exact: true
     }
