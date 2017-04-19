@@ -16,16 +16,19 @@ export const routes = [
         exact: true,
         loadData: (dispatch, params) => Promise.all([
             dispatch(postsList(params))
-        ])
+        ]),
+        locales: ['common']
     },
     {
         component: asyncComponent(() => System.import('../containers/counter/counter').then(module => module.default)),
         path: '/counter',
-        exact: true
+        exact: true,
+        locales: ['common']
     },
     {
         component: asyncComponent(() => System.import('../containers/notFound/notFound').then(module => module.default)),
         path: '/notFound',
-        exact: true
+        exact: true,
+        locales: ['common']
     }
 ];
