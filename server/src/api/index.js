@@ -12,6 +12,13 @@ export default
 
     exec(req, res)
     {
-        res.json({});
+        res.json({
+            result: 1,
+            message: 'dat get',
+            data: [
+                { a: 1, b: 2 },
+                { a: 2, b: 3 }
+            ]
+        });
     }
 };

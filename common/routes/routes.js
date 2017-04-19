@@ -1,4 +1,5 @@
 import asyncComponent from '../utils/asyncComponent';
+import { postsList } from '../actions/post';
 
 if (undefined === global.System.import)
 {
@@ -12,7 +13,10 @@ export const routes = [
     {
         component: asyncComponent(() => System.import('../containers/index/index').then(module => module.default)),
         path: '/',
-        exact: true
+        exact: true,
+        loadData: (dispatch, params) => Promise.all([
+            dispatch(postsList(params))
+        ])
     },
     {
         component: asyncComponent(() => System.import('../containers/counter/counter').then(module => module.default)),
