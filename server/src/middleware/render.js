@@ -36,6 +36,7 @@ function loadBranchData(dispatch, url, locale)
     {
         resources = (route.locales) ? i18nResource(locale, route.locales) : i18nResource(locale, ['common']);
         i18nServer = i18n.cloneInstance();
+        i18nServer.changeLanguage(locale);
         i18nClient = { locale, resources };
 
         if (route.loadData)
