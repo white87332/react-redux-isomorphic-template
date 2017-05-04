@@ -26,7 +26,7 @@ function i18nResource(locale, locales)
     return obj;
 }
 
-function loadBranchData(dispatch, url, locale)
+function loadBranchData(dispatch, url, locale, query)
 {
     let resources;
     let i18nServer;
@@ -41,6 +41,7 @@ function loadBranchData(dispatch, url, locale)
 
         if (route.loadData)
         {
+            match.params.query = query;
             return route.loadData(dispatch, match.params);
         }
 
@@ -79,11 +80,12 @@ export default function render(app)
             else
             {
                 const store = finalCreateStore(rootReducer);
-                const branch = matchRoutes(routes, url);
+                const urlNoquery = url.split('?')[0];
+                const branch = matchRoutes(routes, urlNoquery);
                 if (branch.length > 0)
                 {
                     let locale = (req.locale.indexOf('zh') === -1 && req.locale.indexOf('cn') === -1) ? 'zh' : req.locale;
-                    loadBranchData(store.dispatch, url, locale)
+                    loadBranchData(store.dispatch, urlNoquery, locale, req.query)
                         .then((data) =>
                         {
                             let i18nObj = data[0];

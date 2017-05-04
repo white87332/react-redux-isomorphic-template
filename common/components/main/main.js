@@ -26,11 +26,11 @@ class Main extends React.Component
 }
 
 Main.defaultProps = {
-    children: {}
+    children: []
 };
 
 Main.propTypes = {
-    children: PropTypes.element.isRequired
+    children: PropTypes.array.isRequired
 };
 
 export default Main;
