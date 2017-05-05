@@ -1,6 +1,7 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { translate } from 'react-i18next';
 import isNode from 'detect-node';
 import PropTypes from 'prop-types';
 import * as CounterActions from '../../actions/counter';
@@ -22,6 +23,7 @@ function mapDispatchToProps(dispatch)
     return bindActionCreators(CounterActions, dispatch);
 }
 
+@translate(['common'], { wait: true })
 class Counter extends React.Component
 {
     constructor(props, context)
