@@ -39,7 +39,7 @@
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "normalize.css": "^7.0.0",
-    "prop-types": "^15.5.9",
+    "prop-types": "^15.5.10",
     "qs": "^6.4.0",
     "react": "^15.5.4",
     "react-cookie": "^1.0.5",
