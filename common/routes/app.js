@@ -5,11 +5,11 @@ import { routes } from './routes';
 import Main from '../components/main/main';
 
 export default () => (
-    <Switch>
-        <Main>
+    <Main>
+        <Switch>
             {routes.map(route => (
                 <Route key={uniqueId()} {...route} />
             ))}
-        </Main>
-    </Switch>
+        </Switch>
+    </Main>
 );
