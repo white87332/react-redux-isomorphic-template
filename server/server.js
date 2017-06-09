@@ -19,7 +19,12 @@ const httpPort = process.env.PORT || 3000;
 const httpsPort = process.env.HTTPS_PORT || 3443;
 
 // http
-http.createServer(app).listen(httpPort);
+const server = http.createServer(app).listen(httpPort, () => {
+    if (process.env.NODE_ENV === 'development')
+    {
+        server.keepAliveTimeout = 0;
+    }
+});
 
 console.log(`http happens on port ${httpPort}`);
 
