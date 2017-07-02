@@ -7,7 +7,9 @@
     "extends": "airbnb",
     "globals": {
         "log": true,
-        "reactCookie": true
+        "reactCookie": true,
+        "braintree": true,
+        "videojs": true
     },
     "parser": "babel-eslint",
     "parserOptions": {
@@ -39,19 +41,21 @@
         "jsx-a11y/no-static-element-interactions": 0,
         "max-len": [
             1,
-            240,
+            400,
             2, {
                 "ignoreComments": true
             }
         ],
         "no-case-declarations": 0,
         "no-continue": 0,
+        "no-console": 2,
         "no-else-return": 0,
         "no-extraneous-dependencies": 0,
         "no-param-reassign": 0,
         "no-restricted-syntax": 0,
         "no-tabs": 0,
         "no-unneeded-ternary": 0,
+        "no-useless-escape": 0,
         "prefer-const": 0,
         "react/forbid-prop-types": 0,
         "react/jsx-filename-extension": [
@@ -67,6 +71,7 @@
             0, 4
         ],
         "react/jsx-no-bind": 0,
-        "semi": [2, "always"]
+        "semi": [2, "always"],
+        "guard-for-in": 0
     }
 }
