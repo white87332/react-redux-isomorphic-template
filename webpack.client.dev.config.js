@@ -16,7 +16,7 @@ module.exports = {
         path: '/asset/js/bundle/',
         filename: 'bundle.js',
         publicPath: '/asset/js/bundle/',
-        chunkFilename: 'chunk.[id].js'
+        chunkFilename: 'chunk.[chunkhash].js'
     },
     module:
     {
