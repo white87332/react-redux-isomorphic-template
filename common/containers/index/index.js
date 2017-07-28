@@ -11,12 +11,6 @@ if (!isNode)
 @translate(['common'], { wait: true })
 class Index extends React.Component
 {
-    static locales = [
-        'common'
-    ];
-
-    static needs = [];
-
     constructor(props)
     {
         super(props);

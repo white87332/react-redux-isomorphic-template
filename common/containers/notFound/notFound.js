@@ -5,12 +5,6 @@ import { translate } from 'react-i18next';
 @translate(['common'], { wait: true })
 class NotFound extends React.Component
 {
-    static locales = [
-        'common'
-    ];
-
-    static needs = [];
-
     constructor(props)
     {
         super(props);
