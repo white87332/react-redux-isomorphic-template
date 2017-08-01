@@ -7,6 +7,7 @@ import { matchRoutes } from 'react-router-config';
 import { I18nextProvider } from 'react-i18next';
 import serialize from 'serialize-javascript';
 import { merge } from 'lodash';
+import { readFileSync } from 'fs';
 import promiseMiddleware from '../../../common/middleware/promiseMiddleware';
 import App from '../../../common/routes/app';
 import { routes } from '../../../common/routes/routes';
@@ -17,10 +18,10 @@ const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 
 function i18nResource(locale, locales)
 {
-    let obj;
-    for (const val of locales)
+    let obj = {};
+    for (const ns of locales)
     {
-        const resource = i18n.getResourceBundle(locale, val);
+        const resource = JSON.parse(readFileSync(`locales/${locale}/${ns}.json`, 'utf8'));
         obj = merge(obj, resource);
     }
     return obj;
