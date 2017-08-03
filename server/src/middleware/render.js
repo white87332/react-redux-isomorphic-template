@@ -19,11 +19,20 @@ const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 function i18nResource(locale, locales)
 {
     let obj = {};
-    for (const ns of locales)
+    try
     {
-        const resource = JSON.parse(readFileSync(`locales/${locale}/${ns}.json`, 'utf8'));
-        obj = merge(obj, resource);
+        for (const ns of locales)
+        {
+            obj = merge(obj, JSON.parse(readFileSync(`locales/${locale}/${ns}.json`, 'utf8')));
+        }
     }
+    catch (e)
+    {
+        /* eslint no-console: ["error", { allow: ["log"] }] */
+        console.log(e);
+        obj = false;
+    }
+
     return obj;
 }
 
@@ -35,11 +44,14 @@ function loadBranchData(dispatch, url, locale, query)
     const branch = matchRoutes(routes, url);
     const promises = branch.map(({ route, match }) =>
     {
+        // i18n
+        locale = ['zh', 'en'].indexOf(locale) === -1 ? 'zh' : locale;
         resources = (route.locales) ? i18nResource(locale, route.locales) : i18nResource(locale, ['common']);
         i18nServer = i18n.cloneInstance();
         i18nServer.changeLanguage(locale);
         i18nClient = { locale, resources };
 
+        // loadData
         if (route.loadData)
         {
             match.params.query = query;
@@ -85,8 +97,7 @@ export default function render(app)
                 const branch = matchRoutes(routes, urlNoquery);
                 if (branch.length > 0)
                 {
-                    let locale = (req.locale.indexOf('zh') === -1 && req.locale.indexOf('cn') === -1) ? 'zh' : req.locale;
-                    loadBranchData(store.dispatch, urlNoquery, locale, req.query)
+                    loadBranchData(store.dispatch, urlNoquery, req.locale, req.query)
                         .then((data) =>
                         {
                             let i18nObj = data[0];
