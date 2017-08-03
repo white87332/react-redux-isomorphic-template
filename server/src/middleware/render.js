@@ -101,44 +101,53 @@ export default function render(app)
                         .then((data) =>
                         {
                             let i18nObj = data[0];
-                            const html = renderToString(
-                                <Provider store={store}>
-                                    <I18nextProvider i18n={i18nObj.i18nServer}>
-                                        <StaticRouter location={url} context={context}>
-                                            <App />
-                                        </StaticRouter>
-                                    </I18nextProvider>
-                                </Provider>
-                            );
 
-                            let bundleJs = 'bundle.min.js';
-                            let bundleCss = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
-                            if (process.env.NODE_ENV === 'development')
+                            // 語系讀取錯誤
+                            if (!i18nObj.i18nClient.resources)
                             {
-                                bundleJs = 'bundle.js';
-                                bundleCss = '';
+                                res.redirect('/notFound');
                             }
+                            else
+                            {
+                                const html = renderToString(
+                                    <Provider store={store}>
+                                        <I18nextProvider i18n={i18nObj.i18nServer}>
+                                            <StaticRouter location={url} context={context}>
+                                                <App />
+                                            </StaticRouter>
+                                        </I18nextProvider>
+                                    </Provider>
+                                );
 
-                            return `
-                            <!doctype html>
-                            <html lang="utf-8">
-                              <head>
-                                  <meta charset="utf-8">
-                                  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                                  <meta name="viewport" content="width=device-width, initial-scale=1">
-                                  <meta name="description" content="">
-                                  <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
-                                  <title>react-redux-isomorphic</title>
-                                  ${bundleCss}
-                              </head>
-                              <body>
-                                <div id="root">${html}</div>
-                                <script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
-                                 <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
-                                <script async src="/asset/js/bundle/${bundleJs}"></script>
-                              </body>
-                            </html>
-                            `;
+                                let bundleJs = 'bundle.min.js';
+                                let bundleCss = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
+                                if (process.env.NODE_ENV === 'development')
+                                {
+                                    bundleJs = 'bundle.js';
+                                    bundleCss = '';
+                                }
+
+                                return `
+                                <!doctype html>
+                                <html lang="utf-8">
+                                  <head>
+                                      <meta charset="utf-8">
+                                      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                      <meta name="viewport" content="width=device-width, initial-scale=1">
+                                      <meta name="description" content="">
+                                      <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
+                                      <title>react-redux-isomorphic</title>
+                                      ${bundleCss}
+                                  </head>
+                                  <body>
+                                    <div id="root">${html}</div>
+                                    <script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
+                                     <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
+                                    <script async src="/asset/js/bundle/${bundleJs}"></script>
+                                  </body>
+                                </html>
+                                `;
+                            }
                         })
                         .then((page) =>
                         {
