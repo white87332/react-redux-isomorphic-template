@@ -42,10 +42,10 @@ function loadBranchData(dispatch, url, locale, query)
     let i18nServer;
     let i18nClient;
     const branch = matchRoutes(routes, url);
+    locale = ['zh', 'en'].indexOf(locale) === -1 ? 'zh' : locale;
     const promises = branch.map(({ route, match }) =>
     {
         // i18n
-        locale = ['zh', 'en'].indexOf(locale) === -1 ? 'zh' : locale;
         resources = (route.locales) ? i18nResource(locale, route.locales) : i18nResource(locale, ['common']);
         i18nServer = i18n.cloneInstance();
         i18nServer.changeLanguage(locale);
