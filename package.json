@@ -30,7 +30,7 @@
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.0.5",
     "detect-node": "^2.0.3",
-    "express": "^4.15.4",
+    "express": "^4.15.5",
     "express-session": "^1.15.5",
     "helmet": "^3.8.1",
     "i18next": "^9.0.0",
