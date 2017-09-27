@@ -1,6 +1,6 @@
 {
   "name": "react-redux-isomprphic-template",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "An isomorphic example built with react, redux and react-router",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node -r babel-register ./server/server.js",
@@ -42,8 +42,8 @@
     "normalize.css": "^7.0.0",
     "prop-types": "^15.6.0",
     "qs": "^6.5.1",
-    "react": "^15.6.2",
-    "react-dom": "^15.6.2",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-i18next": "^5.4.1",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
