@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToNodeStream } from 'react-dom/server';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
@@ -109,7 +109,7 @@ export default function render(app)
                             }
                             else
                             {
-                                const html = renderToString(
+                                renderToNodeStream(
                                     <Provider store={store}>
                                         <I18nextProvider i18n={i18nObj.i18nServer}>
                                             <StaticRouter location={url} context={context}>
@@ -140,7 +140,7 @@ export default function render(app)
                                       ${bundleCss}
                                   </head>
                                   <body>
-                                    <div id="root">${html}</div>
+                                    <div id="root"></div>
                                     <script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
                                      <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
                                     <script async src="/asset/js/bundle/${bundleJs}"></script>
