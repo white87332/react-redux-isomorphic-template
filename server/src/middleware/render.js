@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import React from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { applyMiddleware, createStore } from 'redux';
@@ -16,24 +17,33 @@ import i18n from '../i18n/i18n-server';
 
 const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 
-function i18nResource(locale, locales)
+async function i18nResource(locale, locales = ['common'])
 {
-    let obj = {};
-    try
+    function readFile(ns)
     {
-        for (const ns of locales)
-        {
-            obj = merge(obj, JSON.parse(readFileSync(`locales/${locale}/${ns}.json`, 'utf8')));
-        }
-    }
-    catch (e)
-    {
-        /* eslint no-console: ["error", { allow: ["log"] }] */
-        console.log(e);
-        obj = false;
+        return new Promise((resolve, reject) => {
+            try
+            {
+                resolve(JSON.parse(readFileSync(`locales/${locale}/${ns}.json`, 'utf8')));
+            }
+            catch (e)
+            {
+                reject(e);
+            }
+        });
     }
 
-    return obj;
+    const obj = await Promise.all(locales.map((ns) => {
+        return readFile(ns);
+    }));
+
+    let finalObj = {};
+    for (const innerObj of obj)
+    {
+        finalObj = merge(finalObj, innerObj);
+    }
+
+    return finalObj;
 }
 
 function loadBranchData(dispatch, url, locale, query)
@@ -43,10 +53,12 @@ function loadBranchData(dispatch, url, locale, query)
     let i18nClient;
     const branch = matchRoutes(routes, url);
     locale = ['zh', 'en'].indexOf(locale) === -1 ? 'zh' : locale;
+
     const promises = branch.map(({ route, match }) =>
     {
         // i18n
-        resources = (route.locales) ? i18nResource(locale, route.locales) : i18nResource(locale, ['common']);
+        resources = i18nResource(locale, route.locales);
+
         i18nServer = i18n.cloneInstance();
         i18nServer.changeLanguage(locale);
         i18nClient = { locale, resources };
@@ -57,8 +69,10 @@ function loadBranchData(dispatch, url, locale, query)
             match.params.query = query;
             return route.loadData(dispatch, match.params);
         }
-
-        return Promise.resolve(null);
+        else
+        {
+            return Promise.resolve(null);
+        }
     });
 
     promises.unshift(Promise.resolve(
@@ -98,9 +112,10 @@ export default function render(app)
                 if (branch.length > 0)
                 {
                     loadBranchData(store.dispatch, urlNoquery, req.locale, req.query)
-                        .then((data) =>
+                        .then(async (data) =>
                         {
                             let i18nObj = data[0];
+                            i18nObj.i18nClient.resources = await i18nObj.i18nClient.resources;
 
                             // 語系讀取錯誤
                             if (!i18nObj.i18nClient.resources)

@@ -17,7 +17,10 @@ export const routes = [
         loadData: (dispatch, params) => Promise.all([
             dispatch(postsList(params))
         ]),
-        locales: ['common']
+        locales: [
+            'common',
+            'counter'
+        ]
     },
     {
         component: asyncComponent(() => System.import('../containers/counter/counter').then(module => module.default)),
