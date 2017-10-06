@@ -33,9 +33,7 @@ async function i18nResource(locale, locales = ['common'])
         });
     }
 
-    const obj = await Promise.all(locales.map((ns) => {
-        return readFile(ns);
-    }));
+    const obj = await Promise.all(locales.map(ns => readFile(ns)));
 
     let finalObj = {};
     for (const innerObj of obj)
@@ -85,7 +83,7 @@ function loadBranchData(dispatch, url, locale, query)
     return Promise.all(promises);
 }
 
-export default function render(app)
+export default function reactRender(app)
 {
     app.use((req, res, next) =>
     {

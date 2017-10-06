@@ -2,17 +2,17 @@ import express from 'express';
 import fs from 'fs';
 import http from 'http';
 import https from 'spdy';
-import main from './src/middleware/main';
-import routes from './src/middleware/routes';
-import render from './src/middleware/render';
+import middlewareMain from './src/middleware/main';
+import middlewareApiRoutes from './src/middleware/routes';
+import reactRender from './src/middleware/render';
 import globalSet from './src/middleware/globalSet';
 
 const app = express();
 
 globalSet();
-main(app);
-render(app);
-routes(app);
+middlewareMain(app);
+reactRender(app);
+middlewareApiRoutes(app);
 
 // port
 const httpPort = process.env.PORT || 3000;
