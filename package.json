@@ -3,7 +3,7 @@
   "version": "1.8.0",
   "description": "An isomorphic example built with react, redux and react-router",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon -r babel-register ./server/server.js",
+    "dev": "cross-env NODE_ENV=development node -r babel-register ./server/server.js",
     "prod": "cross-env node ./build/server.js",
     "build": "NODE_ENV=production webpack -p --config webpack.server.prod.config.js && NODE_ENV=production webpack -p --config webpack.client.prod.config.js"
   },
@@ -29,17 +29,17 @@
     "browser-cookies": "^1.1.0",
     "compression": "^1.7.1",
     "cookie-parser": "^1.4.3",
-    "cross-env": "^5.0.5",
+    "cross-env": "^5.1.0",
     "detect-node": "^2.0.3",
-    "express": "^4.16.1",
+    "express": "^4.16.2",
     "express-session": "^1.15.6",
-    "helmet": "^3.8.2",
-    "i18next": "^9.0.1",
-    "i18next-express-middleware": "^1.0.6",
+    "helmet": "^3.9.0",
+    "i18next": "^9.1.0",
+    "i18next-express-middleware": "^1.0.7",
     "i18next-node-fs-backend": "^1.0.0",
     "immutability-helper": "^2.4.0",
     "lodash": "^4.17.4",
-    "moment": "^2.18.1",
+    "moment": "^2.19.1",
     "normalize.css": "^7.0.0",
     "prop-types": "^15.6.0",
     "qs": "^6.5.1",
@@ -58,7 +58,7 @@
     "winston-daily-rotate-file": "^1.7.2"
   },
   "devDependencies": {
-    "autoprefixer": "^7.1.4",
+    "autoprefixer": "^7.1.5",
     "babel-core": "^6.26.0",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
@@ -81,14 +81,14 @@
     "file-loader": "^0.11.2",
     "node-libs-browser": "^2.0.0",
     "node-sass": "^4.5.3",
-    "postcss-loader": "^2.0.6",
+    "postcss-loader": "^2.0.8",
     "pre-commit": "^1.2.2",
     "react-transform-hmr": "^1.0.4",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
-    "webpack": "^3.6.0",
+    "webpack": "^3.7.1",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-hot-middleware": "^2.19.1"
+    "webpack-hot-middleware": "^2.20.0"
   }
 }
