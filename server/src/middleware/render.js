@@ -122,16 +122,6 @@ export default function reactRender(app)
                             }
                             else
                             {
-                                renderToNodeStream(
-                                    <Provider store={store}>
-                                        <I18nextProvider i18n={i18nObj.i18nServer}>
-                                            <StaticRouter location={url} context={context}>
-                                                <App />
-                                            </StaticRouter>
-                                        </I18nextProvider>
-                                    </Provider>
-                                );
-
                                 let bundleJs = 'bundle.min.js';
                                 let bundleCss = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
                                 if (process.env.NODE_ENV === 'development')
@@ -140,31 +130,39 @@ export default function reactRender(app)
                                     bundleCss = '';
                                 }
 
-                                return `
-                                <!doctype html>
-                                <html lang="utf-8">
-                                  <head>
-                                      <meta charset="utf-8">
-                                      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                                      <meta name="viewport" content="width=device-width, initial-scale=1">
-                                      <meta name="description" content="">
-                                      <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
-                                      <title>react-redux-isomorphic</title>
-                                      ${bundleCss}
-                                  </head>
-                                  <body>
-                                    <div id="root"></div>
-                                    <script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
-                                     <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
-                                    <script async src="/asset/js/bundle/${bundleJs}"></script>
-                                  </body>
-                                </html>
-                                `;
+                                res.writeHead(200, { 'Content-Type': 'text/html' });
+                                res.write('<!doctype html>', 'utf8');
+                                res.write('<html lang="utf-8">', 'utf8');
+                                res.write(`<head>
+                                                <meta charset="utf-8">
+                                                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                                <meta name="viewport" content="width=device-width, initial-scale=1">
+                                                <meta name="description" content="">
+                                                <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
+                                                <title>react-redux-isomorphic</title>
+                                                ${bundleCss}
+                                            </head>`, 'utf8');
+                                res.write('<body><div id=root>', 'utf8');
+                                const stream = renderToNodeStream(
+                                    <Provider store={store}>
+                                        <I18nextProvider i18n={i18nObj.i18nServer}>
+                                            <StaticRouter location={url} context={context}>
+                                                <App />
+                                            </StaticRouter>
+                                        </I18nextProvider>
+                                    </Provider>
+                                );
+                                stream.pipe(res, { end: false });
+                                stream.on('end', () => {
+                                    res.write('</div>', 'utf8');
+                                    res.write(`<script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
+                                                 <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
+                                                <script async src="/asset/js/bundle/${bundleJs}"></script>
+                                              </body>
+                                          </html>`, 'utf8');
+                                    res.end();
+                                });
                             }
-                        })
-                        .then((page) =>
-                        {
-                            res.status(200).send(page);
                         })
                         .catch((err) =>
                         {
