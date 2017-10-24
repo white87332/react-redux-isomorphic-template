@@ -29,7 +29,7 @@ module.exports = {
                 query:
                 {
                     presets: ['react-hmre', ['es2015', { modules: false }], 'stage-0', 'react'],
-                    plugins: ['transform-decorators-legacy', 'syntax-dynamic-import', 'transform-async-to-generator', 'transform-regenerator', 'transform-runtime']
+                    plugins: ['transform-decorators-legacy', 'transform-async-to-generator']
                 }
             },
             {
@@ -59,7 +59,11 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' })
+        new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
+        new webpack.NormalModuleReplacementPlugin(
+          /.\/buildServer/,
+          './buildClient'
+        ),
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: 'vendor',
         //     filename: 'vendor.js'
