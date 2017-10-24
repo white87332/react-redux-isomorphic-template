@@ -3,6 +3,7 @@ import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
+import { renderRoutes } from 'react-router-config';
 import isNode from 'detect-node';
 import App from '../routes/app';
 import configureStore from '../store/configureStore';
@@ -21,7 +22,7 @@ hydrate((
     <Provider store={store}>
         <I18nextProvider i18n={i18nClient}>
             <BrowserRouter>
-                <App />
+                {renderRoutes(<App />)}
             </BrowserRouter>
         </I18nextProvider>
     </Provider>

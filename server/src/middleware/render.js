@@ -4,7 +4,7 @@ import { renderToNodeStream } from 'react-dom/server';
 import { applyMiddleware, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
-import { matchRoutes } from 'react-router-config';
+import { matchRoutes, renderRoutes } from 'react-router-config';
 import { I18nextProvider } from 'react-i18next';
 import serialize from 'serialize-javascript';
 import { merge } from 'lodash';
@@ -147,7 +147,7 @@ export default function reactRender(app)
                                     <Provider store={store}>
                                         <I18nextProvider i18n={i18nObj.i18nServer}>
                                             <StaticRouter location={url} context={context}>
-                                                <App />
+                                                {renderRoutes(<App />)}
                                             </StaticRouter>
                                         </I18nextProvider>
                                     </Provider>

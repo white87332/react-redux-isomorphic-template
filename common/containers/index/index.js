@@ -8,7 +8,7 @@ if (!isNode)
     require('./index.scss');
 }
 
-@translate(['common'], { wait: true })
+@translate(['common'], { wait: false })
 class Index extends React.Component
 {
     constructor(props)
@@ -19,6 +19,7 @@ class Index extends React.Component
 
     render()
     {
+        console.log("index");
         return (
             <div className="p_index">
                 index
