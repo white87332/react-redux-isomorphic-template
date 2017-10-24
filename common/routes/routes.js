@@ -1,7 +1,7 @@
 // import asyncComponent from '../utils/asyncComponent';
 // import { postsList } from '../actions/post';
 
-import { Index } from './buildServer';
+import { Index } from './containerServer';
 
 if (undefined === System.import)
 {
