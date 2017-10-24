@@ -29,7 +29,7 @@ module.exports = {
                 query:
                 {
                     presets: ['react-hmre', ['es2015', { modules: false }], 'stage-0', 'react'],
-                    plugins: ['transform-decorators-legacy']
+                    plugins: ['transform-decorators-legacy', 'syntax-dynamic-import', 'transform-async-to-generator', 'transform-regenerator', 'transform-runtime']
                 }
             },
             {

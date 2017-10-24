@@ -1,7 +1,11 @@
 {
     "presets": ["react", "es2015", "stage-0"],
     "plugins": [
-        "babel-plugin-transform-decorators-legacy"
+        "babel-plugin-transform-decorators-legacy",
+        "transform-async-to-generator",
+        "syntax-dynamic-import",
+        "transform-regenerator",
+        "transform-runtime"  
     ],
     "env": {
         "production": {

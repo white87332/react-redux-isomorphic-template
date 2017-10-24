@@ -3,7 +3,7 @@
   "version": "1.8.0",
   "description": "An isomorphic example built with react, redux and react-router",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development node -r babel-register ./server/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon -r babel-register ./server/server.js",
     "prod": "cross-env node ./build/server.js",
     "build": "NODE_ENV=production webpack -p --config webpack.server.prod.config.js && NODE_ENV=production webpack -p --config webpack.client.prod.config.js"
   },
@@ -63,8 +63,11 @@
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.1.2",
     "babel-plugin-react-transform": "^2.0.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-regenerator": "^6.26.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-react-hmre": "^1.1.1",
