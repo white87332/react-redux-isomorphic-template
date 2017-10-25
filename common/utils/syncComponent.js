@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import update from 'immutability-helper';
+import { parse } from 'qs';
 
 export default function syncComponent(chunkName, mod)
 {
@@ -7,20 +9,21 @@ export default function syncComponent(chunkName, mod)
 
     function SyncComponent(props)
     {
-        if (props.staticContext.splitPoints)
-        {
-            props.staticContext.splitPoints.push(chunkName);
-        }
+        const propsAddQuery = update(props, {
+            location: {
+                query: { $set: parse(props.location.search.replace('?', '')) }
+            }
+        });
 
-        return <Component {...props} />;
+        return <Component {...propsAddQuery} />;
     }
 
     SyncComponent.defaultProps = {
-        staticContext: {}
+        location: {}
     };
 
     SyncComponent.propTypes = {
-        staticContext: PropTypes.object
+        location: PropTypes.object
     };
 
     return SyncComponent;

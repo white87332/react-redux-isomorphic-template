@@ -1,9 +1,8 @@
-import asyncComponent from '../utils/asyncComponent';
-import { postsList } from '../actions/post';
+import { Index, Counter, NotFound } from './containerServer';
 
-if (undefined === global.System.import)
+if (undefined === System.import)
 {
-    global.System.import = (path) =>
+    System.import = (path) =>
     {
         return Promise.resolve(require(path));
     };
@@ -11,11 +10,11 @@ if (undefined === global.System.import)
 
 export const routes = [
     {
-        component: asyncComponent(() => System.import('../containers/index/index').then(module => module.default)),
+        component: Index,
         path: '/',
         exact: true,
-        loadData: (dispatch, params) => Promise.all([
-            dispatch(postsList(params))
+        loadData: () => Promise.all([
+            // dispatch(postsList(params))
         ]),
         locales: [
             'common',
@@ -23,13 +22,13 @@ export const routes = [
         ]
     },
     {
-        component: asyncComponent(() => System.import('../containers/counter/counter').then(module => module.default)),
+        component: Counter,
         path: '/counter',
         exact: true,
         locales: ['common']
     },
     {
-        component: asyncComponent(() => System.import('../containers/notFound/notFound').then(module => module.default)),
+        component: NotFound,
         path: '/notFound',
         exact: true,
         locales: ['common']

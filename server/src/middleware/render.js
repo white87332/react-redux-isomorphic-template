@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import React from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { applyMiddleware, createStore } from 'redux';
@@ -156,7 +155,8 @@ export default function reactRender(app)
                                 stream.on('end', () => {
                                     res.write('</div>', 'utf8');
                                     res.write(`<script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
-                                                 <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
+                                                <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
+                                                <script>window.splitPoints=${JSON.stringify(context.splitPoints)}</script>
                                                 <script async src="/asset/js/bundle/${bundleJs}"></script>
                                               </body>
                                           </html>`, 'utf8');
