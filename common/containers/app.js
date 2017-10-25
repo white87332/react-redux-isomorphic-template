@@ -11,14 +11,16 @@ import * as containerClient from '../routes/containerClient';
 // store
 const state = JSON.parse(window.$REDUX_STATE);
 const store = configureStore(state);
+delete window.$REDUX_STATE;
 
-// cookies
+// cookies for window
 window.cookies = require('browser-cookies');
 
 // i18n
 const i18n = window.$i18n;
 i18nClient.changeLanguage(i18n.locale);
 i18nClient.addResourceBundle(i18n.locale, 'common', i18n.resources, true);
+delete window.$i18n;
 
 // init load container
 const splitPoints = window.splitPoints || [];
