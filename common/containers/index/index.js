@@ -11,9 +11,9 @@ if (!isNode)
 @translate(['common'], { wait: false })
 class Index extends React.Component
 {
-    constructor(props)
+    constructor(props, context)
     {
-        super(props);
+        super(props, context);
         this.state = {};
     }
 
