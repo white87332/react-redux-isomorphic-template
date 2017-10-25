@@ -15,7 +15,7 @@ export default function asyncComponent(chunkName, getComponent)
 
         static async loadComponent()
         {
-            const m = await getComponent;
+            const m = await getComponent();
             AsyncComponent.Component = m.default;
             return m.default;
         }
@@ -33,7 +33,7 @@ export default function asyncComponent(chunkName, getComponent)
         {
             if (!this.state.Component)
             {
-                const m = await getComponent;
+                const m = await getComponent();
                 AsyncComponent.Component = m.default;
                 if (this.mounted)
                 {
