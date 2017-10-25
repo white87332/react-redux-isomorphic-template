@@ -61,6 +61,10 @@ module.exports = {
             minimize: true,
             debug: false
         }),
+        new webpack.NormalModuleReplacementPlugin(
+          /.\/containerServer/,
+          './containerClient'
+        ),
         new webpack.optimize.UglifyJsPlugin({
             beautify: false,
             mangle: {

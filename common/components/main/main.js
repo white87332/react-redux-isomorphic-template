@@ -18,7 +18,7 @@ class Main extends React.Component
     render()
     {
         return (
-            <div>
+            <div id="view">
                 {this.props.children}
             </div>
         );

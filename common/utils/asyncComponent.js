@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import { parse } from 'qs';
 
-export default function asyncComponent(getComponent)
+export default function asyncComponent(chunkName, getComponent)
 {
     return class AsyncComponent extends React.Component
     {
@@ -12,6 +12,13 @@ export default function asyncComponent(getComponent)
         }
 
         static Component = null;
+
+        static async loadComponent()
+        {
+            const m = await getComponent();
+            AsyncComponent.Component = m.default;
+            return m.default;
+        }
 
         constructor(props, context)
         {
@@ -22,20 +29,18 @@ export default function asyncComponent(getComponent)
             };
         }
 
-        componentWillMount()
+        async componentWillMount()
         {
             if (!this.state.Component)
             {
-                getComponent().then((Component) =>
+                const m = await getComponent();
+                AsyncComponent.Component = m.default;
+                if (this.mounted)
                 {
-                    AsyncComponent.Component = Component;
-                    if (this.mounted)
-                    {
-                        this.setState(update(this.state, {
-                            Component: { $set: Component }
-                        }));
-                    }
-                });
+                    this.setState(update(this.state, {
+                        Component: { $set: m.default }
+                    }));
+                }
             }
         }
 

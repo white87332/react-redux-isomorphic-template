@@ -8,21 +8,21 @@ if (!isNode)
     require('./index.scss');
 }
 
-@translate(['common'], { wait: true })
+@translate(['common'], { wait: false })
 class Index extends React.Component
 {
-    constructor(props)
+    constructor(props, context)
     {
-        super(props);
+        super(props, context);
         this.state = {};
     }
 
     render()
     {
         return (
-            <div className="p_index">
+            <section className="co_index">
                 index
-            </div>
+            </section>
         );
     }
 }
