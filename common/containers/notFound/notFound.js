@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 
-@translate(['common'], { wait: true })
+@translate(['common'], { wait: false })
 class NotFound extends React.Component
 {
     constructor(props)

@@ -93,7 +93,9 @@ export default function reactRender(app)
         }
         else
         {
-            const context = {};
+            const context = {
+                splitPoints: []
+            };
             if (context.url)
             {
                 res.writeHead(301, {
