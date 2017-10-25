@@ -19,11 +19,10 @@ class Index extends React.Component
 
     render()
     {
-        console.log("index");
         return (
-            <div className="p_index">
+            <section className="co_index">
                 index
-            </div>
+            </section>
         );
     }
 }
