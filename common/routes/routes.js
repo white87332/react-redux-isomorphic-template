@@ -1,7 +1,4 @@
-// import asyncComponent from '../utils/asyncComponent';
-// import { postsList } from '../actions/post';
-
-import { Index } from './containerServer';
+import { Index, Counter, NotFound } from './containerServer';
 
 if (undefined === System.import)
 {
@@ -24,16 +21,16 @@ export const routes = [
             'counter'
         ]
     },
-    // {
-    //     component: asyncComponent(() => System.import('../containers/counter/counter').then(module => module.default)),
-    //     path: '/counter',
-    //     exact: true,
-    //     locales: ['common']
-    // },
-    // {
-    //     component: asyncComponent(() => System.import('../containers/notFound/notFound').then(module => module.default)),
-    //     path: '/notFound',
-    //     exact: true,
-    //     locales: ['common']
-    // }
+    {
+        component: Counter,
+        path: '/counter',
+        exact: true,
+        locales: ['common']
+    },
+    {
+        component: NotFound,
+        path: '/notFound',
+        exact: true,
+        locales: ['common']
+    }
 ];

@@ -13,6 +13,13 @@ export default function asyncComponent(chunkName, getComponent)
 
         static Component = null;
 
+        static async loadComponent()
+        {
+            const m = await getComponent;
+            AsyncComponent.Component = m.default;
+            return m.default;
+        }
+
         constructor(props, context)
         {
             super(props, context);
