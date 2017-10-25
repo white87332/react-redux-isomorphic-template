@@ -6,8 +6,8 @@ i18n.use(Backend)
     .use(LanguageDetector)
     .init(
     {
-        whitelist: ['en', 'zh'],
-        fallbackLng: 'en',
+        // whitelist: ['en', 'zh'],
+        // fallbackLng: 'en',
 
         // have a common namespace used around the full app
         ns: ['common', 'counter'],
