@@ -9,6 +9,11 @@ export default function syncComponent(chunkName, mod)
 
     function SyncComponent(props)
     {
+        if (props.staticContext.splitPoints)
+        {
+            props.staticContext.splitPoints.push(chunkName);
+        }
+
         const propsAddQuery = update(props, {
             location: {
                 query: { $set: parse(props.location.search.replace('?', '')) }
@@ -19,11 +24,13 @@ export default function syncComponent(chunkName, mod)
     }
 
     SyncComponent.defaultProps = {
-        location: {}
+        location: {},
+        staticContext: {}
     };
 
     SyncComponent.propTypes = {
-        location: PropTypes.object
+        location: PropTypes.object,
+        staticContext: PropTypes.object
     };
 
     return SyncComponent;

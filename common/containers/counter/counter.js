@@ -23,7 +23,7 @@ function mapDispatchToProps(dispatch)
     return bindActionCreators(CounterActions, dispatch);
 }
 
-@translate(['common'], { wait: true })
+@translate(['common'], { wait: false })
 class Counter extends React.Component
 {
     constructor(props, context)

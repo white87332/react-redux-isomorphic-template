@@ -93,7 +93,9 @@ export default function reactRender(app)
         }
         else
         {
-            const context = {};
+            const context = {
+                splitPoints: []
+            };
             if (context.url)
             {
                 res.writeHead(301, {
@@ -158,6 +160,7 @@ export default function reactRender(app)
                                                 <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
                                                 <script>window.splitPoints=${JSON.stringify(context.splitPoints)}</script>
                                                 <script async src="/asset/js/bundle/${bundleJs}"></script>
+                                                <script>window.splitPoints=${JSON.stringify(context.splitPoints)}</script>
                                               </body>
                                           </html>`, 'utf8');
                                     res.end();
