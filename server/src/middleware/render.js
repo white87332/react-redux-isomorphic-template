@@ -12,53 +12,52 @@ import promiseMiddleware from '../../../common/middleware/promiseMiddleware';
 import App from '../../../common/routes/app';
 import { routes } from '../../../common/routes/routes';
 import rootReducer from '../../../common/reducers';
-import i18n from '../i18n/i18n-server';
+// import i18n from '../i18n/i18n-server';
 
 const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 
-async function i18nResource(locale, locales = ['common'])
+// async function i18nResource(locale, locales = ['common'])
+// {
+//     function readFile(ns)
+//     {
+//         return new Promise((resolve, reject) => {
+//             try
+//             {
+//                 resolve(JSON.parse(readFileSync(`locales/${locale}/${ns}.json`, 'utf8')));
+//             }
+//             catch (e)
+//             {
+//                 reject(e);
+//             }
+//         });
+//     }
+//
+//     const obj = await Promise.all(locales.map(ns => readFile(ns)));
+//
+//     let finalObj = {};
+//     for (const innerObj of obj)
+//     {
+//         finalObj = merge(finalObj, innerObj);
+//     }
+//
+//     return finalObj;
+// }
+
+function loadBranchData(dispatch, url, query)
 {
-    function readFile(ns)
-    {
-        return new Promise((resolve, reject) => {
-            try
-            {
-                resolve(JSON.parse(readFileSync(`locales/${locale}/${ns}.json`, 'utf8')));
-            }
-            catch (e)
-            {
-                reject(e);
-            }
-        });
-    }
-
-    const obj = await Promise.all(locales.map(ns => readFile(ns)));
-
-    let finalObj = {};
-    for (const innerObj of obj)
-    {
-        finalObj = merge(finalObj, innerObj);
-    }
-
-    return finalObj;
-}
-
-function loadBranchData(dispatch, url, locale, query)
-{
-    let resources;
-    let i18nServer;
-    let i18nClient;
+    // let resources;
+    // let i18nServer;
+    // let i18nClient;
     const branch = matchRoutes(routes, url);
-    locale = ['zh', 'en'].indexOf(locale) === -1 ? 'zh' : locale;
 
     const promises = branch.map(({ route, match }) =>
     {
-        // i18n
-        resources = i18nResource(locale, route.locales);
+        // // i18n
+        // resources = i18nResource(locale, route.locales);
 
-        i18nServer = i18n.cloneInstance();
-        i18nServer.changeLanguage(locale);
-        i18nClient = { locale, resources };
+        // i18nServer = i18n.cloneInstance();
+        // i18nServer.changeLanguage(locale);
+        // i18nClient = { locale, resources };
 
         // loadData
         if (route.loadData)
@@ -72,12 +71,12 @@ function loadBranchData(dispatch, url, locale, query)
         }
     });
 
-    promises.unshift(Promise.resolve(
-        {
-            i18nServer,
-            i18nClient
-        }
-    ));
+    // promises.unshift(Promise.resolve(
+    //     {
+    //         i18nServer,
+    //         i18nClient
+    //     }
+    // ));
 
     return Promise.all(promises);
 }
@@ -96,6 +95,7 @@ export default function reactRender(app)
             const context = {
                 splitPoints: []
             };
+
             if (context.url)
             {
                 res.writeHead(301, {
@@ -110,18 +110,25 @@ export default function reactRender(app)
                 const branch = matchRoutes(routes, urlNoquery);
                 if (branch.length > 0)
                 {
-                    loadBranchData(store.dispatch, urlNoquery, req.locale, req.query)
-                        .then(async (data) =>
+                    loadBranchData(store.dispatch, urlNoquery, req.query)
+                        .then(() =>
                         {
-                            let i18nObj = data[0];
-                            i18nObj.i18nClient.resources = await i18nObj.i18nClient.resources;
+                            // i18n
+                            let initialI18nStore = {};
+                            const initialLanguage = req.i18n.language;
+                            req.i18n.languages.forEach((l) => {
+                                initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
+                            });
+
+                            // let i18nObj = data[0];
+                            // i18nObj.i18nClient.resources = await i18nObj.i18nClient.resources;
 
                             // 語系讀取錯誤
-                            if (!i18nObj.i18nClient.resources)
-                            {
-                                res.redirect('/notFound');
-                            }
-                            else
+                            // if (!i18nObj.i18nClient.resources)
+                            // {
+                            //     res.redirect('/notFound');
+                            // }
+                            // else
                             {
                                 let bundleJs = 'bundle.min.js';
                                 let bundleCss = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
@@ -146,7 +153,7 @@ export default function reactRender(app)
                                 res.write('<body><div id=root>', 'utf8');
                                 const stream = renderToNodeStream(
                                     <Provider store={store}>
-                                        <I18nextProvider i18n={i18nObj.i18nServer}>
+                                        <I18nextProvider i18n={req.i18n}>
                                             <StaticRouter location={url} context={context}>
                                                 <App />
                                             </StaticRouter>
@@ -157,7 +164,8 @@ export default function reactRender(app)
                                 stream.on('end', () => {
                                     res.write('</div>', 'utf8');
                                     res.write(`<script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
-                                                <script>window.$i18n = ${serialize(i18nObj.i18nClient)}</script>
+                                                <script>window.$initialI18nStore = ${JSON.stringify(initialI18nStore)}</script>
+                                                <script>window.$initialLanguage = '${initialLanguage}'</script>
                                                 <script>window.splitPoints=${JSON.stringify(context.splitPoints)}</script>
                                                 <script async src="/asset/js/bundle/${bundleJs}"></script>
                                               </body>
