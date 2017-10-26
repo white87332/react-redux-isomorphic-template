@@ -1,51 +1,20 @@
-const i18n = require('i18next');
-const XHR = require('i18next-xhr-backend');
-const LanguageDetector = require('i18next-browser-languagedetector');
+import i18n from 'i18next';
 
-const options = {
-    fallbackLng: 'en',
-    whitelist: ['en', 'zh'],
-    load: 'languageOnly', // we only provide en, de -> no region specific locals like en-US, de-DE
+i18n.init(
+    {
+        whitelist: ['en', 'zh'],
+        fallbackLng: 'en',
 
-    // have a common namespace used around the full app
-    ns: [
-        'common', 'counter'
-    ],
-    defaultNS: 'common',
+        debug: true,
 
-    keySeparator: '##### not used #####', // as we use full text keys in this sample
-    saveMissing: true,
-    debug: false,
+        // have a common namespace used around the full app
+        ns: ['common', 'counter'],
+        defaultNS: 'common',
 
-    // cache: {
-    //   enabled: true
-    // },
-
-    interpolation: {
-        escapeValue: false, // not needed for react!!
-        formatSeparator: ',',
-        format: (value, format, lng) => {
-            if (format === 'uppercase')
-                return value.toUpperCase();
-            return value;
+        interpolation:
+        {
+            escapeValue: false // not needed for react!!
         }
-    }
-};
+    });
 
-// for browser use xhr backend to load translations and browser lng detector
-if (process && !process.release)
-{
-    console.log(1);
-    i18n.use(XHR)
-    // .use(Cache)
-        .use(LanguageDetector);
-}
-
-// initialize if not already initialized
-if (!i18n.isInitialized)
-{
-    console.log(2);
-    i18n.init(options);
-}
-
-module.exports = i18n;
+export default i18n;

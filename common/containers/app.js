@@ -17,17 +17,21 @@ delete window.$REDUX_STATE;
 window.cookies = require('browser-cookies');
 
 // i18n
-// const locale = window.$initialLanguage;
-// i18nClient.changeLanguage(locale);
-// i18nClient.addResourceBundle(locale, 'common', window.$initialI18nStore, true);
-// delete window.$i18n;
-
+const initialI18nStore = window.$initialI18nStore;
+const initialLanguage = window.$initialLanguage;
+delete window.$initialI18nStore;
+delete window.$initialLanguage;
+console.log(initialI18nStore);
 // init load container
 const splitPoints = window.splitPoints;
 Promise.all(splitPoints.map(chunk => containerClient[chunk].loadComponent().then(() => {
     hydrate(
         <Provider store={store}>
-            <I18nextProvider i18n={i18nClient} initialI18nStore={window.$initialI18nStore} initialLanguage={window.$initialLanguage}>
+            <I18nextProvider
+                i18n={i18nClient}
+                initialI18nStore={initialI18nStore}
+                initialLanguage={initialLanguage}
+            >
                 <BrowserRouter>
                     <App />
                 </BrowserRouter>
