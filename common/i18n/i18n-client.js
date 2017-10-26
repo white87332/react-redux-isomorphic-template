@@ -6,6 +6,7 @@ i18n.init(
         fallbackLng: 'en',
 
         debug: true,
+        load: 'currentOnly',
 
         // have a common namespace used around the full app
         ns: ['common', 'counter'],

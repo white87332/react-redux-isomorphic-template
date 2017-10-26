@@ -10,6 +10,7 @@ import promiseMiddleware from '../../../common/middleware/promiseMiddleware';
 import App from '../../../common/routes/app';
 import { routes } from '../../../common/routes/routes';
 import rootReducer from '../../../common/reducers';
+import i18nServer from '../i18n/i18n-server';
 
 const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 
@@ -69,10 +70,12 @@ export default function reactRender(app)
                             // i18n
                             let initialI18nStore = {};
                             const initialLanguage = req.i18n.language;
+                            console.log(req.i18n.services.resourceStore);
                             req.i18n.languages.forEach((l) => {
-                                console.log(req.i18n.services.resourceStore);
                                 initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
                             });
+                            let useri18n = i18nServer.cloneInstance();
+                            useri18n.changeLanguage(initialLanguage);
 
                             // bundle
                             let bundleJs = 'bundle.min.js';
@@ -101,7 +104,7 @@ export default function reactRender(app)
                             // renderToNodeStream
                             const stream = renderToNodeStream(
                                 <Provider store={store}>
-                                    <I18nextProvider i18n={req.i18n}>
+                                    <I18nextProvider i18n={useri18n}>
                                         <StaticRouter location={url} context={context}>
                                             <App />
                                         </StaticRouter>
