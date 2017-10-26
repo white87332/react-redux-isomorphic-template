@@ -70,7 +70,7 @@ export default function reactRender(app)
                             // i18n
                             let initialI18nStore = {};
                             const initialLanguage = req.i18n.language;
-                            console.log(req.i18n.services.resourceStore);
+
                             req.i18n.languages.forEach((l) => {
                                 initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
                             });
@@ -111,6 +111,8 @@ export default function reactRender(app)
                                     </I18nextProvider>
                                 </Provider>
                             );
+
+                            // stream on end
                             stream.pipe(res, { end: false });
                             stream.on('end', () => {
                                 res.write('</div>', 'utf8');

@@ -6,6 +6,7 @@ i18n.use(Backend).use(LanguageDetector).init({
     whitelist: [
         'en', 'zh'
     ],
+
     fallbackLng: 'en',
 
     preload: [
@@ -16,6 +17,7 @@ i18n.use(Backend).use(LanguageDetector).init({
     ns: [
         'common', 'counter'
     ],
+
     defaultNS: 'common',
 
     debug: false,
