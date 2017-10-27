@@ -15,22 +15,16 @@ export const routes = [
         exact: true,
         loadData: () => Promise.all([
             // dispatch(postsList(params))
-        ]),
-        locales: [
-            'common',
-            'counter'
-        ]
+        ])
     },
     {
         component: Counter,
         path: '/counter',
-        exact: true,
-        locales: ['common']
+        exact: true
     },
     {
         component: NotFound,
         path: '/notFound',
-        exact: true,
-        locales: ['common']
+        exact: true
     }
 ];
