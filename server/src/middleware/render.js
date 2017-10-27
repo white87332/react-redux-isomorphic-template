@@ -6,11 +6,11 @@ import { StaticRouter } from 'react-router';
 import { matchRoutes } from 'react-router-config';
 import { I18nextProvider } from 'react-i18next';
 import serialize from 'serialize-javascript';
+import { CookiesProvider } from 'react-cookie';
 import promiseMiddleware from '../../../common/middleware/promiseMiddleware';
 import App from '../../../common/routes/app';
 import { routes } from '../../../common/routes/routes';
 import rootReducer from '../../../common/reducers';
-import i18nServer from '../i18n/i18n-server';
 
 const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 
@@ -104,7 +104,9 @@ export default function reactRender(app)
                                 <Provider store={store}>
                                     <I18nextProvider i18n={req.i18n}>
                                         <StaticRouter location={url} context={context}>
-                                            <App />
+                                            <CookiesProvider cookies={req.universalCookies}>
+                                                <App />
+                                            </CookiesProvider>
                                         </StaticRouter>
                                     </I18nextProvider>
                                 </Provider>

@@ -1,7 +1,7 @@
 import express from 'express';
 import session from 'express-session';
 import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
+import cookiesMiddleware from 'universal-cookie-express';
 import path from 'path';
 import compression from 'compression';
 import helmet from 'helmet';
@@ -17,7 +17,7 @@ export default function (app)
     app.use(express.static(rootPath));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
-    app.use(cookieParser());
+    app.use(cookiesMiddleware());
     app.use(session(
         {
             secret: 'sessionSecret',
