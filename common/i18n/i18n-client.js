@@ -7,7 +7,7 @@ i18n.init({
 
     fallbackLng: 'en',
 
-    debug: true,
+    debug: false,
     load: 'currentOnly',
 
     // have a common namespace used around the full app
