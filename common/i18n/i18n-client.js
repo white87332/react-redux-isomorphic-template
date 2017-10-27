@@ -5,7 +5,7 @@ i18n.init(
         whitelist: ['en', 'zh'],
         fallbackLng: 'en',
 
-        debug: true,
+        debug: false,
         load: 'currentOnly',
 
         // have a common namespace used around the full app
