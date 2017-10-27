@@ -8,7 +8,7 @@ if (!isNode)
     require('./index.scss');
 }
 
-@translate(['common'], { wait: false })
+@translate(['common', 'counter'], { wait: isNode ? false : true })
 class Index extends React.Component
 {
     constructor(props, context)
