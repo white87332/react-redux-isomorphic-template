@@ -74,8 +74,6 @@ export default function reactRender(app)
                             req.i18n.languages.forEach((l) => {
                                 initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
                             });
-                            let useri18n = i18nServer.cloneInstance();
-                            useri18n.changeLanguage(initialLanguage);
 
                             // bundle
                             let bundleJs = 'bundle.min.js';
@@ -104,7 +102,7 @@ export default function reactRender(app)
                             // renderToNodeStream
                             const stream = renderToNodeStream(
                                 <Provider store={store}>
-                                    <I18nextProvider i18n={useri18n}>
+                                    <I18nextProvider i18n={req.i18n}>
                                         <StaticRouter location={url} context={context}>
                                             <App />
                                         </StaticRouter>

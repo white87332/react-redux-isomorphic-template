@@ -21,7 +21,7 @@ const initialI18nStore = window.$initialI18nStore;
 const initialLanguage = window.$initialLanguage;
 delete window.$initialI18nStore;
 delete window.$initialLanguage;
-console.log(initialI18nStore);
+
 // init load container
 const splitPoints = window.splitPoints;
 Promise.all(splitPoints.map(chunk => containerClient[chunk].loadComponent().then(() => {
