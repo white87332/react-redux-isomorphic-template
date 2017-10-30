@@ -21,7 +21,7 @@ delete window.$initialI18nStore;
 delete window.$initialLanguage;
 
 // cookies for window
-window.cookies = require('browser-cookies');
+window.browserCookies = require('browser-cookies');
 
 // init load container
 const splitPoints = window.splitPoints;
