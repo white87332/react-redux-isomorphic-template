@@ -4,13 +4,13 @@ import { LanguageDetector } from 'i18next-express-middleware';
 
 i18n.use(Backend).use(LanguageDetector).init({
     whitelist: [
-        'en', 'zh'
+        'en-us', 'zh-tw'
     ],
 
-    fallbackLng: 'en',
+    fallbackLng: 'en-us',
 
     preload: [
-        'en', 'zh'
+        'en-us', 'zh-tw'
     ],
 
     // have a common namespace used around the full app
@@ -23,6 +23,8 @@ i18n.use(Backend).use(LanguageDetector).init({
     debug: false,
 
     load: 'currentOnly',
+
+    lowerCaseLng: true,
 
     interpolation: {
         escapeValue: false, // not needed for react!!

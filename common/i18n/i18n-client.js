@@ -2,10 +2,12 @@ import i18n from 'i18next';
 
 i18n.init({
     whitelist: [
-        'en', 'zh'
+        'en-us', 'zh-tw'
     ],
 
-    fallbackLng: 'en',
+    fallbackLng: 'en-us',
+
+    lowerCaseLng: true,
 
     debug: false,
     load: 'currentOnly',
