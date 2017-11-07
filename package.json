@@ -36,7 +36,7 @@
     "i18next": "^10.0.7",
     "i18next-express-middleware": "^1.0.7",
     "i18next-node-fs-backend": "^1.0.0",
-    "immutability-helper": "^2.4.0",
+    "immutability-helper": "^2.5.0",
     "lodash": "^4.17.4",
     "moment": "^2.19.1",
     "normalize.css": "^7.0.0",
