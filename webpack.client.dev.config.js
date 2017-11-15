@@ -28,7 +28,7 @@ module.exports = {
                 exclude: /node_modules/,
                 query:
                 {
-                    presets: ['react-hmre', ['es2015', { modules: false }], 'stage-0', 'react'],
+                    presets: ['react-hmre', ['env', { modules: false }], 'stage-0', 'react'],
                     plugins: ['transform-decorators-legacy', 'transform-async-to-generator']
                 }
             },
