@@ -14,10 +14,8 @@ import rootReducer from '../../../common/reducers';
 
 const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 
-function loadBranchData(dispatch, url, query)
+function loadBranchData(branch, dispatch, url, query)
 {
-    const branch = matchRoutes(routes, url);
-
     const promises = branch.map(({ route, match }) =>
     {
         // loadData
@@ -64,7 +62,7 @@ export default function reactRender(app)
                 const branch = matchRoutes(routes, urlNoquery);
                 if (branch.length > 0)
                 {
-                    loadBranchData(store.dispatch, urlNoquery, req.query)
+                    loadBranchData(branch, store.dispatch, urlNoquery, req.query)
                         .then(() =>
                         {
                             // i18n
