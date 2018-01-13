@@ -36,10 +36,9 @@
     "i18next": "^10.2.1",
     "i18next-express-middleware": "^1.0.9",
     "i18next-node-fs-backend": "^1.0.0",
-    "immutability-helper": "^2.6.2",
+    "immutability-helper": "^2.6.4",
     "lodash": "^4.17.4",
     "moment": "^2.20.0",
-    "normalize.css": "^7.0.0",
     "prop-types": "^15.6.0",
     "qs": "^6.5.1",
     "react": "^16.2.0",
@@ -92,7 +91,7 @@
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
-    "webpack-dev-middleware": "^2.0.3",
+    "webpack-dev-middleware": "^2.0.4",
     "webpack-hot-middleware": "^2.21.0"
   }
 }
