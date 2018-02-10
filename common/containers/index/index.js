@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import isNode from 'detect-node';
+import { Helmet } from 'react-helmet';
 
 if (!isNode)
 {
@@ -20,9 +21,20 @@ class Index extends React.Component
     render()
     {
         return (
-            <section className="co_index">
+            <div className="co_index">
+                <Helmet>
+                    <meta charSet="utf-8" />
+                    <meta property="og:type" content="website" />
+                    <meta property="og:site_name" content="" />
+                    <meta property="og:title" content="" />
+                    <meta property="og:description" content="" />
+                    <meta property="og:url" content="" />
+                    <meta property="og:image" content="" />
+                    <link rel="canonical" href="" />
+                </Helmet>
+
                 index
-            </section>
+            </div>
         );
     }
 }
