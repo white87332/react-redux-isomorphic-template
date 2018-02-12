@@ -37,7 +37,7 @@ export default function reactRender(app)
 {
     app.use((req, res, next) =>
     {
-        const url = req.url;
+        const { url } = req;
         if (url.indexOf('/api') !== -1 || url.indexOf('/favicon.ico') !== -1)
         {
             next();
