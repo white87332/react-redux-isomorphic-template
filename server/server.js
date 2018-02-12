@@ -26,6 +26,7 @@ const server = http.createServer(app).listen(httpPort, () => {
     }
 });
 
+/* eslint no-console: ["error", { allow: ["log"] }] */
 console.log(`http happens on port ${httpPort}`);
 
 // https

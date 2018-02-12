@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { applyMiddleware, createStore } from 'redux';
+import Helmet from 'react-helmet';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
 import { matchRoutes } from 'react-router-config';
@@ -57,20 +58,21 @@ export default function reactRender(app)
             }
             else
             {
+                const { query, i18n, universalCookies } = req;
                 const store = finalCreateStore(rootReducer);
                 const urlNoquery = url.split('?')[0];
                 const branch = matchRoutes(routes, urlNoquery);
                 if (branch.length > 0)
                 {
-                    loadBranchData(branch, store.dispatch, urlNoquery, req.query)
+                    loadBranchData(branch, store.dispatch, urlNoquery, query)
                         .then(() =>
                         {
                             // i18n
                             let initialI18nStore = {};
-                            const initialLanguage = req.i18n.language;
+                            const initialLanguage = i18n.language;
 
-                            req.i18n.languages.forEach((l) => {
-                                initialI18nStore[l] = req.i18n.services.resourceStore.data[l];
+                            i18n.languages.forEach((l) => {
+                                initialI18nStore[l] = i18n.services.resourceStore.data[l];
                             });
 
                             // bundle
@@ -91,6 +93,7 @@ export default function reactRender(app)
                                             <meta http-equiv="X-UA-Compatible" content="IE=edge">
                                             <meta name="viewport" content="width=device-width, initial-scale=1">
                                             <meta name="description" content="">
+                                            ${Helmet.renderStatic().meta.toString()}
                                             <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
                                             <title>react-redux-isomorphic</title>
                                             ${bundleCss}
@@ -100,9 +103,9 @@ export default function reactRender(app)
                             // renderToNodeStream
                             const stream = renderToNodeStream(
                                 <Provider store={store}>
-                                    <I18nextProvider i18n={req.i18n}>
+                                    <I18nextProvider i18n={i18n}>
                                         <StaticRouter location={url} context={context}>
-                                            <CookiesProvider cookies={req.universalCookies}>
+                                            <CookiesProvider cookies={universalCookies}>
                                                 <App />
                                             </CookiesProvider>
                                         </StaticRouter>
