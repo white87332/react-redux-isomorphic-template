@@ -5,12 +5,10 @@ module.exports = {
    */
     apps: [
         {
-            name: 'react-redux-isomorphic-template',
+            name: 'app',
             script: 'build/server.js',
             env: {
-                COMMON_VARIABLE: 'true'
-            },
-            env_production: {
+                COMMON_VARIABLE: 'true',
                 NODE_ENV: 'production'
             }
         }
@@ -27,7 +25,7 @@ module.exports = {
             ref: 'origin/master',
             repo: '',
             path: '',
-            'post-deploy': 'npm i && pm2 reload /root/workspace/react-redux-isomorphic-template/process.json',
+            'post-deploy': 'npm i && pm2 reload /root/workspace/react-redux-isomorphic-template/ecosystem.config.js',
             env: {
                 NODE_ENV: 'production'
             }
@@ -39,7 +37,7 @@ module.exports = {
             ref: 'origin/master',
             repo: '',
             path: '',
-            'post-deploy': 'npm i && pm2 reload /home/ubuntu/workspace/react-redux-isomorphic-template/process.json',
+            'post-deploy': 'npm i && pm2 reload /home/ubuntu/workspace/react-redux-isomorphic-template/ecosystem.config.js',
             env: {
                 NODE_ENV: 'production'
             }
