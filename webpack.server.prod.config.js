@@ -17,8 +17,7 @@ module.exports = {
     entry: path.join(process.cwd(), 'server/server'),
     output: {
         path: path.join(process.cwd(), 'build'),
-        filename: 'server.js',
-        chunkFilename: '[id].js'
+        filename: 'server.js'
     },
     externals: getExternals(),
     node: {
