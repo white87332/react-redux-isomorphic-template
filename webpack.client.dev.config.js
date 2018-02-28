@@ -3,6 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
     devtool: 'source-map',
+    mode: 'development',
     entry:
     {
         app: [
@@ -59,15 +60,9 @@ module.exports = {
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
-        new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
         new webpack.NormalModuleReplacementPlugin(
             /.\/containerServer/,
             './containerClient'
-        ),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'vendor',
-        //     filename: 'vendor.js'
-        // })
+        )
     ]
 };

@@ -24,7 +24,7 @@ delete window.$initialLanguage;
 window.browserCookies = require('browser-cookies');
 
 // init load container
-const splitPoints = window.splitPoints;
+const { splitPoints } = window;
 Promise.all(splitPoints.map(chunk => containerClient[chunk].loadComponent().then(() =>
 {
     hydrate(
@@ -41,5 +41,5 @@ Promise.all(splitPoints.map(chunk => containerClient[chunk].loadComponent().then
                 </BrowserRouter>
             </I18nextProvider>
         </Provider>
-    , document.getElementById('root'));
+        , document.getElementById('root'));
 })));

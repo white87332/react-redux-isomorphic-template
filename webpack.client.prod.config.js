@@ -3,6 +3,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const path = require('path');
 
 module.exports = {
+    mode: 'production',
     entry:
     {
         app: [
@@ -56,31 +57,13 @@ module.exports = {
         moduleExtensions: ['-loader']
     },
     plugins: [
-        new webpack.DefinePlugin({ 'process.env.NODE_ENV': '\'production\'' }),
-        new webpack.LoaderOptionsPlugin({
-            minimize: true,
-            debug: false
-        }),
         new webpack.NormalModuleReplacementPlugin(
             /.\/containerServer/,
             './containerClient'
         ),
-        new webpack.optimize.UglifyJsPlugin({
-            beautify: false,
-            mangle: {
-                screw_ie8: true,
-                keep_fnames: true
-            },
-            compress: {
-                screw_ie8: true,
-                warnings: false,
-            },
-            comments: false
-        }),
-        new webpack.optimize.ModuleConcatenationPlugin(),
         new ExtractTextPlugin({
             filename: '../../css/bundle/bundle.min.css',
-            allChunks: false
+            allChunks: true
         }),
         // new webpack.optimize.CommonsChunkPlugin({
         //     name: 'vendor',
