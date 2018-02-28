@@ -30,21 +30,19 @@ module.exports = {
                 query:
                 {
                     presets: [['env', { modules: false }], 'stage-0', 'react'],
-                    plugins: ['transform-decorators-legacy']
+                    plugins: ['transform-decorators-legacy', 'transform-async-to-generator']
                 }
             },
             {
                 test: /\.css|\.scss$/,
-                use: ExtractTextPlugin.extract(
-                    {
-                        fallback: 'style',
-                        use: [
-                            'css',
-                            'sass',
-                            'postcss'
-                        ]
-                    }
-                )
+                use: ExtractTextPlugin.extract({
+                    fallback: 'style',
+                    use: [
+                        'css',
+                        'sass',
+                        'postcss'
+                    ]
+                })
             },
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
