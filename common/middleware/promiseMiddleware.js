@@ -11,18 +11,18 @@ export default function promiseMiddleware()
             return next(action);
         }
 
-        const [REQUEST, SUCCESS, ERROR] = types;
+        const [REQ, SUC, ERR] = types;
 
-        next({ ...rest, type: REQUEST });
+        next({ ...rest, type: REQ });
 
         return promise
             .then((data) =>
             {
-                next({ ...rest, data: data.data, type: SUCCESS });
+                next({ ...rest, data: data.data, type: SUC });
             })
             .catch((error) =>
             {
-                next({ ...rest, error, type: ERROR });
+                next({ ...rest, error, type: ERR });
             });
     };
 }
