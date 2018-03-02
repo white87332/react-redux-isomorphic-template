@@ -15,8 +15,8 @@ reactRender(app);
 middlewareApiRoutes(app);
 
 // port
-const httpPort = process.env.PORT || 3000;
-const httpsPort = process.env.HTTPS_PORT || 3443;
+const httpPort = process.env.PORT || 80;
+const httpsPort = process.env.HTTPS_PORT || 443;
 
 // http
 const server = http.createServer(app).listen(httpPort, () => {
