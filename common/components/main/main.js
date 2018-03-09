@@ -1,11 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isNode from 'detect-node';
-
-if (!isNode)
-{
-    require('./main.scss');
-}
 
 class Main extends React.Component
 {
@@ -18,9 +12,9 @@ class Main extends React.Component
     render()
     {
         return (
-            <div id="view">
-                {this.props.children}
-            </div>
+            [
+                this.props.children
+            ]
         );
     }
 }

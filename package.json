@@ -1,6 +1,6 @@
 {
   "name": "react-redux-isomprphic-template",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "An isomorphic example built with react, redux and react-router",
   "scripts": {
     "dev": "cross-env PORT=3000 NODE_ENV=development node -r babel-register ./server/server.js -d",
@@ -53,6 +53,7 @@
     "redux": "^3.7.2",
     "serialize-javascript": "^1.4.0",
     "spdy": "^3.4.7",
+    "styled-components": "^3.2.1",
     "superagent": "^3.8.2",
     "universal-cookie-express": "^2.1.2",
     "winston": "^2.4.0",

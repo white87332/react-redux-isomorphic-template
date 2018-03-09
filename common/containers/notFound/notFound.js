@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
+import isNode from 'detect-node';
+import { Container } from '../../widgets/container';
 
-@translate(['common'], { wait: false })
+@translate([], { wait: isNode ? false : true })
 class NotFound extends React.Component
 {
     constructor(props)
@@ -14,9 +16,9 @@ class NotFound extends React.Component
     render()
     {
         return (
-            <div className="p_notFound" >
+            <Container>
                 NotFound
-            </div>
+            </Container>
         );
     }
 }

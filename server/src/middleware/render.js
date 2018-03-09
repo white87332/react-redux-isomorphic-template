@@ -1,6 +1,7 @@
 import React from 'react';
 import { renderToNodeStream } from 'react-dom/server';
 import { applyMiddleware, createStore } from 'redux';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import Helmet from 'react-helmet';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
@@ -76,13 +77,7 @@ export default function reactRender(app)
                             });
 
                             // bundle
-                            let bundleJs = 'bundle.min.js';
-                            let bundleCss = '<link rel=\'stylesheet\' type=\'text/css\' href=\'/asset/css/bundle/bundle.min.css\'>';
-                            if (process.env.NODE_ENV === 'development')
-                            {
-                                bundleJs = 'bundle.js';
-                                bundleCss = '';
-                            }
+                            let bundleJs = (process.env.NODE_ENV === 'development') ? 'bundle.js' : 'bundle.min.js';
 
                             // response
                             res.writeHead(200, { 'Content-Type': 'text/html' });
@@ -95,23 +90,26 @@ export default function reactRender(app)
                                             <meta name="description" content="">
                                             ${Helmet.renderStatic().meta.toString()}
                                             <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
+                                            <link rel="stylesheet" type="text/css" href="/asset/css/normalize/normalize.min.css">
                                             <title>react-redux-isomorphic</title>
-                                            ${bundleCss}
                                         </head>`, 'utf8');
                             res.write('<body><div id=root>', 'utf8');
 
-                            // renderToNodeStream
-                            const stream = renderToNodeStream(
+                            const sheet = new ServerStyleSheet();
+                            const jsx = sheet.collectStyles(
                                 <Provider store={store}>
                                     <I18nextProvider i18n={i18n}>
                                         <StaticRouter location={url} context={context}>
                                             <CookiesProvider cookies={universalCookies}>
-                                                <App />
+                                                <StyleSheetManager sheet={sheet.instance}>
+                                                    <App />
+                                                </StyleSheetManager>
                                             </CookiesProvider>
                                         </StaticRouter>
                                     </I18nextProvider>
                                 </Provider>
                             );
+                            const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx));
 
                             // stream on end
                             stream.pipe(res, { end: false });

@@ -3,11 +3,8 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import isNode from 'detect-node';
 import { Helmet } from 'react-helmet';
-
-if (!isNode)
-{
-    require('./index.scss');
-}
+import { Container } from '../../widgets/container';
+import { Button } from '../../widgets/button';
 
 @translate([], { wait: isNode ? false : true })
 class Index extends React.Component
@@ -21,7 +18,7 @@ class Index extends React.Component
     render()
     {
         return (
-            <div className="co_index">
+            <Container>
                 <Helmet>
                     <meta charSet="utf-8" />
                     <meta property="og:type" content="website" />
@@ -33,8 +30,8 @@ class Index extends React.Component
                     <link rel="canonical" href="" />
                 </Helmet>
 
-                index
-            </div>
+                <Button>styled-components</Button>
+            </Container>
         );
     }
 }

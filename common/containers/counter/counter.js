@@ -2,14 +2,11 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
-import isNode from 'detect-node';
 import PropTypes from 'prop-types';
+import isNode from 'detect-node';
 import * as CounterActions from '../../actions/counter';
-
-if (!isNode)
-{
-    require('./counter.scss');
-}
+import { Container } from '../../widgets/container';
+import { Button } from '../../widgets/button';
 
 function mapStateToProps(state)
 {
@@ -23,7 +20,7 @@ function mapDispatchToProps(dispatch)
     return bindActionCreators(CounterActions, dispatch);
 }
 
-@translate(['common'], { wait: false })
+@translate([], { wait: isNode ? false : true })
 class Counter extends React.Component
 {
     constructor(props, context)
@@ -36,13 +33,13 @@ class Counter extends React.Component
     {
         const { increment, decrement, numbers } = this.props;
         return (
-            <div className="counter">
+            <Container>
                 Clicked: {numbers} times
                 {' '}
-                <button onClick={increment}>+</button>
+                <Button onClick={increment}>+</Button>
                 {' '}
-                <button onClick={decrement}>-</button>
-            </div>
+                <Button onClick={decrement}>-</Button>
+            </Container>
         );
     }
 }
