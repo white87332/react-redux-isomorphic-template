@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import { CookiesProvider } from 'react-cookie';
-import { consolidateStreamedStyles } from 'styled-components';
 import App from '../routes/app';
 import configureStore from '../store/configureStore';
 import i18nClient from '../i18n/i18n-client';
@@ -28,8 +27,6 @@ window.browserCookies = require('browser-cookies');
 const { splitPoints } = window;
 Promise.all(splitPoints.map(chunk => containerClient[chunk].loadComponent().then(() =>
 {
-    consolidateStreamedStyles();
-
     hydrate(
         <Provider store={store}>
             <I18nextProvider

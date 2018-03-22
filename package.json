@@ -57,7 +57,7 @@
     "superagent": "^3.8.2",
     "universal-cookie-express": "^2.1.2",
     "winston": "^2.4.0",
-    "winston-daily-rotate-file": "^1.7.2"
+    "winston-daily-rotate-file": "^3.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
