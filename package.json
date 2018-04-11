@@ -33,17 +33,17 @@
     "express": "^4.16.2",
     "express-session": "^1.15.6",
     "helmet": "^3.12.0",
-    "i18next": "^10.5.0",
+    "i18next": "^11.1.1",
     "i18next-express-middleware": "^1.1.1",
     "i18next-node-fs-backend": "^1.0.0",
     "immutability-helper": "^2.6.6",
     "lodash": "^4.17.5",
-    "moment": "^2.21.0",
+    "moment": "^2.22.0",
     "prop-types": "^15.6.1",
     "qs": "^6.5.1",
-    "react": "^16.3.0",
+    "react": "^16.3.1",
     "react-cookie": "^2.1.4",
-    "react-dom": "^16.3.0",
+    "react-dom": "^16.3.1",
     "react-helmet": "^5.2.0",
     "react-i18next": "^7.5.1",
     "react-redux": "^5.0.7",
@@ -53,11 +53,11 @@
     "redux": "^3.7.2",
     "serialize-javascript": "^1.4.0",
     "spdy": "^3.4.7",
-    "styled-components": "^3.2.1",
+    "styled-components": "^3.2.5",
     "superagent": "^3.8.2",
     "universal-cookie-express": "^2.1.2",
     "winston": "^2.4.0",
-    "winston-daily-rotate-file": "^3.0.1"
+    "winston-daily-rotate-file": "^3.0.2"
   },
   "devDependencies": {
     "autoprefixer": "^8.1.0",
@@ -78,7 +78,7 @@
     "css-loader": "^0.28.10",
     "eslint": "^4.18.2",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
@@ -91,9 +91,9 @@
     "sass-loader": "^6.0.7",
     "style-loader": "^0.20.3",
     "url-loader": "^1.0.1",
-    "webpack": "^4.4.1",
-    "webpack-cli": "^2.0.13",
-    "webpack-dev-middleware": "^3.1.0",
-    "webpack-hot-middleware": "^2.21.2"
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-middleware": "^3.1.2",
+    "webpack-hot-middleware": "^2.22.0"
   }
 }
