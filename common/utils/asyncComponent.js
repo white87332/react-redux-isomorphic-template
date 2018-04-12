@@ -29,29 +29,31 @@ export default function asyncComponent(chunkName, getComponent)
             };
         }
 
-        async componentWillMount()
+        async componentDidMount()
         {
             if (!this.state.Component)
             {
                 const m = await getComponent();
                 AsyncComponent.Component = m.default;
-                if (this.mounted)
+                if (!this.mounted)
                 {
-                    this.setState(update(this.state, {
-                        Component: { $set: m.default }
-                    }));
+                    this.setComponent(m.default);
                 }
             }
-        }
-
-        componentDidMount()
-        {
-            this.mounted = true;
         }
 
         componentWillUnmount()
         {
             this.mounted = false;
+        }
+
+        setComponent(Component)
+        {
+            this.setState({
+                Component
+            }, () => {
+                this.mounted = true;
+            });
         }
 
         render()
