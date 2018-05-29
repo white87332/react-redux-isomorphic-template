@@ -1,4 +1,5 @@
 import { Index, Counter, NotFound } from './containerServer';
+import { postReq } from '../actions/post';
 
 if (undefined === System.import)
 {
@@ -13,8 +14,8 @@ export const routes = [
         component: Index,
         path: '/',
         exact: true,
-        loadData: () => Promise.all([
-            // dispatch(postsList(params))
+        loadData: (dispatch, params) => Promise.all([
+            dispatch(postReq(params))
         ])
     },
     {

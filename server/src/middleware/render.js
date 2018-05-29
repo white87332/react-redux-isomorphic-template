@@ -1,7 +1,9 @@
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+// import { renderToString } from 'react-dom/server';
 import { applyMiddleware, createStore } from 'redux';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
+import { createEpicMiddleware } from 'redux-observable';
+import { renderToString, wrapRootEpic } from 'react-redux-epic';
 import Helmet from 'react-helmet';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router';
@@ -9,12 +11,14 @@ import { matchRoutes } from 'react-router-config';
 import { I18nextProvider } from 'react-i18next';
 import serialize from 'serialize-javascript';
 import { CookiesProvider } from 'react-cookie';
-import promiseMiddleware from '../../../common/middleware/promiseMiddleware';
+// import promiseMiddleware from '../../../common/middleware/promiseMiddleware';
 import App from '../../../common/routes/app';
 import { routes } from '../../../common/routes/routes';
 import rootReducer from '../../../common/reducers';
+import rootEpic from '../../../common/epics';
 
-const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
+const wrappedEpic = wrapRootEpic(rootEpic);
+const epicMiddleware = createEpicMiddleware(wrappedEpic);
 
 function loadBranchData(branch, dispatch, url, query)
 {
@@ -59,8 +63,11 @@ export default function reactRender(app)
             }
             else
             {
-                const { query, i18n, universalCookies } = req;
+                const finalCreateStore = applyMiddleware(epicMiddleware)(createStore);
                 const store = finalCreateStore(rootReducer);
+
+                const { query, i18n, universalCookies } = req;
+
                 const urlNoquery = url.split('?')[0];
                 const branch = matchRoutes(routes, urlNoquery);
                 if (branch.length > 0)
@@ -91,7 +98,8 @@ export default function reactRender(app)
                                             </CookiesProvider>
                                         </StaticRouter>
                                     </I18nextProvider>
-                                </Provider>
+                                </Provider>,
+                                wrappedEpic
                             );
 
                             // get meta tag
