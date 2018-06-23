@@ -5,11 +5,9 @@ import https from 'spdy';
 import middlewareMain from './src/middleware/main';
 import middlewareApiRoutes from './src/middleware/routes';
 import reactRender from './src/middleware/render';
-import globalSet from './src/middleware/globalSet';
 
 const app = express();
 
-globalSet();
 middlewareMain(app);
 reactRender(app);
 middlewareApiRoutes(app);
@@ -44,13 +42,13 @@ if (fs.existsSync('./cert/server.pfx'))
 // mkfir logs
 if (!fs.existsSync('./logs'))
 {
-    fs.mkdir('./logs');
+    fs.mkdir('./logs', () => {});
 }
 
 // mkfir uploads
 if (!fs.existsSync('./public/asset/uploads'))
 {
-    fs.mkdir('./public/asset/uploads');
+    fs.mkdir('./public/asset/uploads', () => {});
 }
 
 process.on('uncaughtException', (evt) =>
