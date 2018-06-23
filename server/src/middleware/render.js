@@ -1,5 +1,5 @@
 import React from 'react';
-import { renderToNodeStream } from 'react-dom/server';
+import { renderToString } from 'react-dom/server';
 import { applyMiddleware, createStore } from 'redux';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 import Helmet from 'react-helmet';
@@ -76,27 +76,11 @@ export default function reactRender(app)
                                 initialI18nStore[l] = i18n.services.resourceStore.data[l];
                             });
 
-                            // bundle
-                            let bundleJs = (process.env.NODE_ENV === 'development') ? 'bundle.js' : 'bundle.min.js';
-
-                            // response
-                            res.writeHead(200, { 'Content-Type': 'text/html' });
-                            res.write('<!doctype html>', 'utf8');
-                            res.write('<html lang="utf-8">', 'utf8');
-                            res.write(`<head>
-                                            <meta charset="utf-8">
-                                            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                                            <meta name="viewport" content="width=device-width, initial-scale=1">
-                                            <meta name="description" content="">
-                                            ${Helmet.renderStatic().meta.toString()}
-                                            <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
-                                            <link rel="stylesheet" type="text/css" href="/asset/css/normalize/normalize.min.css">
-                                            <title>react-redux-isomorphic</title>
-                                        </head>`, 'utf8');
-                            res.write('<body><div id=root>', 'utf8');
-
+                            // style-components sheet
                             const sheet = new ServerStyleSheet();
-                            const jsx = sheet.collectStyles(
+
+                            // app
+                            const html = renderToString(
                                 <Provider store={store}>
                                     <I18nextProvider i18n={i18n}>
                                         <StaticRouter location={url} context={context}>
@@ -109,21 +93,34 @@ export default function reactRender(app)
                                     </I18nextProvider>
                                 </Provider>
                             );
-                            const stream = sheet.interleaveWithNodeStream(renderToNodeStream(jsx));
 
-                            // stream on end
-                            stream.pipe(res, { end: false });
-                            stream.on('end', () => {
-                                res.write('</div>', 'utf8');
-                                res.write(`<script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
-                                            <script>window.$initialI18nStore = ${JSON.stringify(initialI18nStore)}</script>
-                                            <script>window.$initialLanguage = '${initialLanguage}'</script>
-                                            <script>window.splitPoints=${JSON.stringify(context.splitPoints)}</script>
-                                            <script async src="/asset/js/bundle/${bundleJs}"></script>
-                                          </body>
-                                      </html>`, 'utf8');
-                                res.end();
-                            });
+                            // get meta tag
+                            const helmet = Helmet.renderStatic();
+
+                            // bundle
+                            let bundleJs = (process.env.NODE_ENV === 'development') ? 'bundle.js' : 'bundle.min.js';
+
+                            res.send(`
+                                <!doctype html>
+                                <html ${helmet.htmlAttributes.toString()}>
+                                    <head>
+                                        ${helmet.title.toString()}
+                                        ${helmet.meta.toString()}
+                                        ${helmet.link.toString()}
+                                        <link rel="shortcut icon" href="/asset/img/favicon.ico" type="image/x-icon" />
+                                        <link rel="stylesheet" type="text/css" href="/asset/css/normalize/normalize.min.css">
+                                        ${sheet.getStyleTags()}
+                                    </head>
+                                    <body ${helmet.bodyAttributes.toString()}>
+                                        <div id="root">${html}</div>
+                                        <script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
+                                        <script>window.$initialI18nStore = ${JSON.stringify(initialI18nStore)}</script>
+                                        <script>window.$initialLanguage = '${initialLanguage}'</script>
+                                        <script>window.splitPoints=${JSON.stringify(context.splitPoints)}</script>
+                                        <script async src="/asset/js/bundle/${bundleJs}"></script>
+                                    </body>
+                                </html>
+                            `);
                         })
                         .catch((err) =>
                         {

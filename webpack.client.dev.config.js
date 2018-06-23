@@ -31,7 +31,11 @@ module.exports = {
                 query:
                 {
                     presets: ['react-hmre', ['env', { modules: false }], 'stage-0', 'react'],
-                    plugins: ['transform-decorators-legacy', 'transform-async-to-generator']
+                    plugins: ['transform-decorators-legacy', 'transform-async-to-generator',
+                        ['babel-plugin-styled-components', {
+                            ssr: true
+                        }]
+                    ]
                 }
             },
             {

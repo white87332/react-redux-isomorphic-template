@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { I18nextProvider } from 'react-i18next';
 import { CookiesProvider } from 'react-cookie';
+import { injectGlobal } from 'styled-components';
 import App from '../routes/app';
 import configureStore from '../store/configureStore';
 import i18nClient from '../i18n/i18n-client';
@@ -22,6 +23,13 @@ delete window.$initialLanguage;
 
 // cookies for window
 window.browserCookies = require('browser-cookies');
+
+/* eslint no-unused-expressions: ["error", { "allowTaggedTemplates": true }] */
+injectGlobal`
+    body {
+        box-sizing: border-box;
+    }
+`;
 
 // init load container
 const { splitPoints } = window;
