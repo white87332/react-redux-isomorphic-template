@@ -1,8 +1,7 @@
 export default function promiseMiddleware()
 {
     // next = dispatch
-    return next => (action) =>
-    {
+    return next => (action) => {
         const { promise, types, ...rest } = action;
 
         // if no promise attr, next
@@ -16,12 +15,10 @@ export default function promiseMiddleware()
         next({ ...rest, type: REQ });
 
         return promise
-            .then((data) =>
-            {
-                next({ ...rest, data: data.data, type: SUC });
+            .then((data) => {
+                next({ ...rest, data, type: SUC });
             })
-            .catch((error) =>
-            {
+            .catch((error) => {
                 next({ ...rest, error, type: ERR });
             });
     };
