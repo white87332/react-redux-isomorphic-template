@@ -51,7 +51,6 @@ if (!fs.existsSync('./public/asset/uploads'))
     fs.mkdir('./public/asset/uploads', () => {});
 }
 
-process.on('uncaughtException', (evt) =>
-{
+process.on('uncaughtException', (evt) => {
     console.log('uncaughtException: ', evt);
 });
