@@ -5,8 +5,7 @@ import { translate } from 'react-i18next';
 import PropTypes from 'prop-types';
 import isNode from 'detect-node';
 import * as CounterActions from '../../actions/counter';
-import { Container } from '../../widgets/container';
-import { Button } from '../../widgets/button';
+import { Button, Container } from '../../widgets';
 
 function mapStateToProps(state)
 {

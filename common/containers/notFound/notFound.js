@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import isNode from 'detect-node';
-import { Container } from '../../widgets/container';
+import { Container } from '../../widgets';
 
 @translate([], { wait: isNode ? false : true })
 class NotFound extends React.Component

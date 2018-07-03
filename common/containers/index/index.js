@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { translate } from 'react-i18next';
 import isNode from 'detect-node';
 import { Helmet } from 'react-helmet';
-import { Container } from '../../widgets/container';
-import { Button } from '../../widgets/button';
+import { Button, Container } from '../../widgets';
 
 @translate([], { wait: isNode ? false : true })
 class Index extends React.Component
