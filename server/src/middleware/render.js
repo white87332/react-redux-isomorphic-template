@@ -18,8 +18,7 @@ const finalCreateStore = applyMiddleware(promiseMiddleware)(createStore);
 
 function loadBranchData(branch, dispatch, url, query)
 {
-    const promises = branch.map(({ route, match }) =>
-    {
+    const promises = branch.map(({ route, match }) => {
         // loadData
         if (route.loadData)
         {
@@ -37,8 +36,7 @@ function loadBranchData(branch, dispatch, url, query)
 
 export default function reactRender(app)
 {
-    app.use((req, res, next) =>
-    {
+    app.use((req, res, next) => {
         const { url } = req;
         if (url.indexOf('/api') !== -1 || url.indexOf('/favicon.ico') !== -1)
         {
@@ -66,8 +64,7 @@ export default function reactRender(app)
                 if (branch.length > 0)
                 {
                     loadBranchData(branch, store.dispatch, urlNoquery, query)
-                        .then(() =>
-                        {
+                        .then(() => {
                             // i18n
                             let initialI18nStore = {};
                             const initialLanguage = i18n.language;
@@ -94,11 +91,9 @@ export default function reactRender(app)
                                 </Provider>
                             );
 
-                            // get meta tag
                             const helmet = Helmet.renderStatic();
-
-                            // bundle
-                            let bundleJs = (process.env.NODE_ENV === 'development') ? 'bundle.js' : 'bundle.min.js';
+                            const bundleJs = (process.env.NODE_ENV === 'development') ? 'bundle.js' : 'bundle.min.js';
+                            const { splitPoints } = context;
 
                             res.send(`
                                 <!doctype html>
@@ -116,14 +111,13 @@ export default function reactRender(app)
                                         <script>window.$REDUX_STATE = ${serialize(JSON.stringify(store.getState()))}</script>
                                         <script>window.$initialI18nStore = ${JSON.stringify(initialI18nStore)}</script>
                                         <script>window.$initialLanguage = '${initialLanguage}'</script>
-                                        <script>window.splitPoints=${JSON.stringify(context.splitPoints)}</script>
-                                        <script async src="/asset/js/bundle/${bundleJs}"></script>
+                                        <script>window.splitPoints=${JSON.stringify(splitPoints)}</script>
+                                        <script async src="/dist/${bundleJs}"></script>
                                     </body>
                                 </html>
                             `);
                         })
-                        .catch((err) =>
-                        {
+                        .catch((err) => {
                             res.end(err.message);
                         });
                 }

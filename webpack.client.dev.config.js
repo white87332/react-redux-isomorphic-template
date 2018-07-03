@@ -10,14 +10,12 @@ module.exports = {
             'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
             'babel-polyfill',
             `${path.resolve(__dirname, 'common')}/containers/app`
-        ],
-        // vendor: ['react', 'react-dom']
+        ]
     },
     output:
     {
-        path: '/asset/js/bundle/',
         filename: 'bundle.js',
-        publicPath: '/asset/js/bundle/',
+        publicPath: '/dist/',
         chunkFilename: 'chunk.[chunkhash].js'
     },
     module:
